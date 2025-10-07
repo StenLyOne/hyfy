@@ -1,0 +1,53 @@
+import clsx from "clsx";
+import Image from "next/image";
+import type { CardData } from "src/lib/types/ui/card";
+
+export function Card({
+  data,
+  position,
+}: {
+  data: CardData;
+  position: { 0: string; 1: string };
+}) {
+  const { title, media, subtitle, text } = data;
+
+  return (
+    <div className="group mb-auto">
+      {media?.url && (
+        <div className="relative w-full h-full  sm:max-w-[330px] max-h-[380px] bg-[#F7F7F9] rounded-[20px] overflow-hidden">
+          <Image
+            src={media.url}
+            alt={media.alt}
+            width={330}
+            height={380}
+            className="z-1 relative group-hover:scale-110 transform-scale duration-500  "
+          ></Image>
+          {/* SHAPES */}
+          <div
+            className={clsx(
+              "absolute w-[380px] group-hover:left-1/2 group-hover:top-1/2 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 duration-500  z-0 h-[380px] bg-[radial-gradient(circle_at_center,_#00AD99,_#F0F0F0)] rounded-full blur-[60px] opacity-50",
+              position[0]
+            )}
+          ></div>
+          <div
+            className={clsx(
+              "absolute w-[380px] group-hover:left-1/2 group-hover:top-1/2 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 duration-500  z-0 h-[380px] bg-[radial-gradient(circle_at_center,_#00AD99,_#F0F0F0)] rounded-full blur-[60px] opacity-50",
+              position[1]
+            )}
+          ></div>{" "}
+        </div>
+      )}
+      <div className="mt-4">
+        {subtitle && (
+          <p className="text-[16px] leading-5 text-gray-500 uppercase mb-1">
+            {subtitle}
+          </p>
+        )}
+        {title && (
+          <h5 className={`body-large ${text ? "mb-3" : "mb-0"}`}>{title}</h5>
+        )}
+        {text && <p>{text}</p>}
+      </div>
+    </div>
+  );
+}
