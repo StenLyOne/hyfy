@@ -12,7 +12,9 @@ export function CardItem({ card }: { card: CardData }) {
       className="relative max-w-[1074px] w-full min-h-[400px] md:h-[400px] p-5 md:p-10 bg-gray-100  flex items-center justify-center rounded-[20px] overflow-hidden"
     >
       <div className="z-3 max-w-[600px] space-y-4 mr-auto mt-auto">
-        {title && <h3 className="h3-default text-white font-semibold">{title}</h3>}
+        {title && (
+          <h3 className="h3-default text-white font-semibold">{title}</h3>
+        )}
         {text && <p className="text-white font-semibold body-medium">{text}</p>}
       </div>
 

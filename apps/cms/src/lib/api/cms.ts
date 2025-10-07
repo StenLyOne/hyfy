@@ -30,6 +30,7 @@ interface Page {
 export class GetHomePage {
   async fetch(): Promise<Page> {
     if (process.env.USE_MOCK === "true") {
+      // локальные моки, без apiClient
       return {
         globalSetting: Mock.globalSetting,
         hero: Mock.hero,
@@ -45,6 +46,7 @@ export class GetHomePage {
       };
     }
 
+    // 👉 здесь уже только реальное API (Strapi)
     const res = await apiClient<{
       data: {
         globalSetting: GlobalSettingData;
@@ -59,7 +61,7 @@ export class GetHomePage {
         ctaSection: CtaSectionData;
         footer: FooterData;
       };
-    }>("./mocks/123", {
+    }>("/home", {
       next: { tags: [HOME_TAG] },
     });
 
@@ -78,3 +80,4 @@ export class GetHomePage {
     };
   }
 }
+

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRef, useLayoutEffect, useState } from "react";
+import { AnimatedText } from "src/components/Animation/AnimatedText";
 import { PartnersData } from "src/lib/types/sections/partners";
 
 export function   Partners({ data }: { data: PartnersData }) {
@@ -21,10 +22,10 @@ export function   Partners({ data }: { data: PartnersData }) {
   return (
     <section className="bg-white overflow-hidden z-3 relative">
       <div className="pt-[140px] flex flex-col gap-10 md:gap-20">
-        <div className="container !py-0  space-y-4 min-w-[277px] px-4 md:px-0 bg-white z-1">
+        <AnimatedText className="container !py-0  space-y-4 min-w-[277px] px-4 md:px-0 bg-white z-1">
           <h2 className="h2-large">{title}</h2>
           <p>{text}</p>
-        </div>
+        </AnimatedText>
 
         {/* Внешняя маска */}
         <div ref={containerRef} className="relative overflow-hidden w-[150%] ">

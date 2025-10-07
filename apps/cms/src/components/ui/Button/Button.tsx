@@ -1,5 +1,3 @@
-
-
 import type { Button as ButtonType } from "src/lib/types/ui/button";
 import { useIsExternalLink } from "src/hooks/useIsExternalLink";
 import Link from "next/link";
@@ -17,8 +15,9 @@ export function Button({
   const external = useIsExternalLink(link);
 
   // базовые стили
-  const baseClasses = `group cursor-pointer w-full md:w-max inline-flex items-center justify-between gap-4 uppercase text-[20px] font-semibold ${
-    type === "default" ? "px-10 py-4" : "py-1 pl-5 pr-1"
+  const baseClasses = `group cursor-pointer w-full md:w-max inline-flex items-center gap-4 uppercase text-[20px] font-semibold  transition-opacity duration-200
+  hover:opacity-90 ${
+    type === "default" ? "px-15 py-4.25 justify-center" : "py-2 pl-5 pr-2 justify-between"
   } rounded-full`;
 
   const colorClasses = {

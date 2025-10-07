@@ -6,6 +6,7 @@ import { Button } from "src/components/ui/Button/Button";
 
 export function Solutions({ data }: { data: SolutionsData }) {
   const { cards, ctas, subtitle, text, title } = data;
+  
   return (
     <section className="bg-[#D6F5F3]  z-3 relative">
       <div className="container space-y-15">

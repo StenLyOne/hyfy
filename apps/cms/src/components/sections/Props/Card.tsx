@@ -17,11 +17,11 @@ export function Card({
 
   return (
     <div
-      className="sticky top-10 md:top-25 flex flex-col md:flex-row justify-start w-full h-full max-h-[900px] lg:h-[580px] rounded-[20px]"
+      className="sticky top-0 md:top-25 flex flex-col md:flex-row justify-end w-full h-auto lg:h-[580px] rounded-[20px]"
       style={{ backgroundColor: color }}
     >
       <div className="w-full md:w-1/2 px-5 md:px-10 py-10">
-        {subtitle && <h5 className="md:pb-[180px]">{subtitle}</h5>}
+        {subtitle && <h5 className="max-[768px]:mb-1 max-[768px]:!text-[14px] md:pb-[180px]">{subtitle}</h5>}
         <div className="space-y-5">
           {title && <h3 className="h3-default font-medium">{title}</h3>}
           {text && <p>{text}</p>}
@@ -38,7 +38,7 @@ export function Card({
             alt={media.alt}
             width={676}
             height={582}
-            className="w-full  object-cover rounded-[20px] h-[450px] md:h-full z-0"
+            className="w-full  object-cover rounded-[20px] min-h-[450px] md:h-full z-0"
           />
         )}
         <div

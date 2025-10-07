@@ -60,8 +60,8 @@ export const Mock: Page = {
         label: "See Moore",
         color: "white",
         link: "#workflow",
-        type: "arrow-bottom",
-        variant: "outline",
+        type: "default",
+        variant: "solid",
       },
     ],
   },
@@ -309,22 +309,22 @@ export const Mock: Page = {
   testimonials: {
     title: "What Our Partners say",
     subtitle: "Testimonials",
-    text: "Overall, Hyfe’s technology has been robust, accurate, and user-friendly for both participants and study staff. Communication with the Hyfe team - including data science, clinical operations, and technical support - has been timely and solution-oriented. We are pleased with the data quality and the overall collaboration.",
+    text: "",
     ctas: [
-      {
-        label: "Get a Demo",
-        color: "primary",
-        link: "/adasd",
-        type: "default",
-        variant: "solid",
-      },
-      {
-        label: "Get a Demo",
-        color: "primary",
-        link: "/asdad",
-        type: "arrow-bottom",
-        variant: "outline",
-      },
+      // {
+      //   label: "Get a Demo",
+      //   color: "primary",
+      //   link: "/adasd",
+      //   type: "default",
+      //   variant: "solid",
+      // },
+      // {
+      //   label: "Get a Demo",
+      //   color: "primary",
+      //   link: "/asdad",
+      //   type: "arrow-bottom",
+      //   variant: "outline",
+      // },
     ],
     cards: [
       {
@@ -394,13 +394,13 @@ export const Mock: Page = {
     subtitle: "Our solutions",
     text: "Discover our full suite of products for research, digital therapeutics, and patient care.",
     ctas: [
-      {
-        label: "see validation data",
-        color: "primary",
-        link: "/adasd",
-        type: "arrow-right",
-        variant: "solid",
-      },
+      // {
+      //   label: "see validation data",
+      //   color: "primary",
+      //   link: "/adasd",
+      //   type: "arrow-right",
+      //   variant: "solid",
+      // },
     ],
     cards: [
       {
@@ -464,7 +464,7 @@ export const Mock: Page = {
       {
         label: "see validation data",
         color: "primary",
-        link: "/adasd",
+        link: "/avatars/testimonials.david.png",
         type: "arrow-right",
         variant: "solid",
       },

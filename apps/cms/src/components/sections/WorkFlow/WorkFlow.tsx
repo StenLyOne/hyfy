@@ -2,6 +2,7 @@ import { Button } from "src/components/ui/Button/Button";
 import { SubTitle } from "src/components/ui/Subtitle/SubTitle";
 import { WorkFlowData } from "src/lib/types/sections/workFlow";
 import { Card } from "./Card";
+import { AnimatedText } from "src/components/Animation/AnimatedText";
 
 const shapePositions = [
   {
@@ -27,13 +28,13 @@ export function WorkFlow({ data }: { data: WorkFlowData }) {
   return (
     <section id="workflow" className="bg-gray-50">
       <div className="container space-y-15 bg-gra">
-        <div className="text-center text-balance">
+        <AnimatedText className="text-center text-balance">
           {subtitle && (
             <div className="mx-auto w-max">
               <SubTitle label={subtitle} />
             </div>
           )}
-          <h2 className="h2-default md:my-6">{title}</h2>
+          <h2 className="h2-default my-6">{title}</h2>
           <p>{text}</p>
           {ctas && (
             <div className="mt-10 space-x-6">
@@ -42,7 +43,7 @@ export function WorkFlow({ data }: { data: WorkFlowData }) {
               ))}
             </div>
           )}
-        </div>
+        </AnimatedText>
         <div className="flex  gap-5 md:gap-0 flex-col sm:flex-row pt-4 md:pt-6 pb-10 bg-white px-4 md:pl-5 pl-4 md:pr-0 rounded-[26px]">
           {cards.map((card, index) => (
             <div className="flex flex-col sm:flex-row items-center" key={index}>
