@@ -26,7 +26,7 @@ const shapePositions = [
 export function WorkFlow({ data }: { data: WorkFlowData }) {
   const { cards, ctas, subtitle, text, title } = data;
   return (
-    <section id="workflow" className="bg-gray-50">
+    <section id="workflow" className="bg-gray-50 rounded-t-[40px]   shadow-[0_-20px_33px_rgba(53,239,217,0.21)]">
       <div className="container space-y-15 bg-gra">
         <AnimatedText className="text-center text-balance">
           {subtitle && (

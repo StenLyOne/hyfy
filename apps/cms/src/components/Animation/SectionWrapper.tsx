@@ -29,23 +29,25 @@ export function SectionWrapper({ children }: { children: React.ReactNode }) {
   const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
 
   // на мобиле вылет меньше (чтобы не дергало), на десктопе больше
-  const startY = isMobile ? -15 : 25;
+  const startY = isMobile ? -35 : 25;
   const y = useTransform(scrollYProgress, [0, 1], [startY, 0]);
 
   // скругление чуть раньше
-  const borderRadius = useTransform(scrollYProgress, [0.9, 1], [32, 0]);
+  // const borderRadius = useTransform(scrollYProgress, [0.9, 1], [32, 0]);
 
   return (
     <motion.section
       ref={ref}
-      style={{ scale, y, borderRadius }}
+      style={{ scale, y }}
       className="
-        relative z-20 bg-white rounded-[20px] overflow-hidden
-        shadow-[0_-20px_33px_rgba(53,239,217,0.21)]
-        min-h-[100dvh]         
-        transform-gpu
-        will-change-[transform,border-radius]
+        relative z-20 
+      
+        md:min-h-[100dvh]    
+        min-h-[100svh]     
+        transform-gpu will-change-[transform]
+        [contain:layout_paint_style]
         -mt-[12vh] sm:-mt-[16vh] 
+        
       "
     >
       {children}

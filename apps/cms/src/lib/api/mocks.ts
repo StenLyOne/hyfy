@@ -9,7 +9,7 @@ import { SolutionsData } from "../types/sections/solutions";
 import { CtaSectionData } from "../types/sections/ctaSection";
 import { GlobalSettingData } from "../types/globalSetting";
 import { FooterData } from "../types/sections/footer";
-
+  
 interface Page {
   globalSetting: GlobalSettingData;
   hero: HeroData;

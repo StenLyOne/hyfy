@@ -54,7 +54,7 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
         >
           <Video img="/images/preview.png" video={video} />
           <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60" />
+        
           <AnimatedText className="max-w-[750px] mx-auto text-center space-y-6 flex flex-col items-center justify-center h-full relative z-10">
             {title && (
               <motion.h2
