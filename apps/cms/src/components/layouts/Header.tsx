@@ -1,62 +1,143 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { useScreenSize } from "src/hooks/useScreenSize";
+import { HeaderData } from "src/lib/types/sections/header";
+import { GlobalSettingData } from "src/lib/types/globalSetting";
+import { SocialMediaRender } from "../ui/SocialMediaRender";
 
-export function Header() {
+export function Header({
+  data,
+  global,
+}: {
+  data: HeaderData;
+  global: GlobalSettingData;
+}) {
+  const { links, cta } = data;
+  const { shortLogo, socialMedia } = global;
+  const [open, setOpen] = useState(false);
+  const [isTop, setIsTop] = useState(true);
+  const { width } = useScreenSize();
+
+  useEffect(() => {
+    if (width <= 767) return;
+    const handleScroll = () => {
+      setIsTop(window.scrollY <= 500);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [width]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* ЛОГО */}
-        <Link href="/" className="flex items-center">
+    <header className="fixed top-0 left-0 right-0 z-1001 bg-white/20 backdrop-blur-[40px] shadow-sm">
+      <div className="container !py-2 md:!py-4 mx-auto px-6 flex items-center justify-between">
+        {/* LOGO */}
+        <Link href="/" className="flex items-center z-2">
           <Image
-            src="/logos/logo-short.png"
+            src={shortLogo}
             alt="Logo"
             width={68}
             height={48}
-            className="h-12 w-auto"
+            className="h-8 md:h-12 w-auto"
           />
         </Link>
 
-        {/* НАВИГАЦИЯ */}
-        <nav className="hidden md:flex space-x-8 text-gray-800 font-medium">
-          <Link
-            href="#workflow"
-            className="hover:text-primary transition-colors"
-          >
-            Workflow
-          </Link>
-          <Link
-            href="#services"
-            className="hover:text-primary transition-colors"
-          >
-            Services
-          </Link>
-          <Link href="#how" className="hover:text-primary transition-colors">
-            How it works
-          </Link>
-          <Link
-            href="#testimonials"
-            className="hover:text-primary transition-colors"
-          >
-            Testimonials
-          </Link>
-          <Link
-            href="#solutions"
-            className="hover:text-primary transition-colors"
-          >
-            Our Solutions
-          </Link>
+        {/* NAV */}
+        <nav
+          className={`hidden md:flex space-x-8 ${
+            isTop ? "text-white" : "text-gray-800"
+          }  font-medium`}
+        >
+          {links.map((link, index) => (
+            <Link
+              key={index}
+              href={link.url}
+              className="hover:text-primary transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
-        {/* CTA кнопка */}
-        <Link
-          href="#contact"
-          className="bg-primary text-white px-5 py-2 rounded-full font-semibold hover:opacity-85 transition"
+        {/* CTA  */}
+
+        {cta && (
+          <a
+            href={cta.link}
+            className="hidden md:inline-block bg-primary text-white px-5 py-2  rounded-full font-semibold hover:opacity-85 transition"
+          >
+            {cta.label}
+          </a>
+        )}
+
+        {/* BURGER MENU */}
+        <button
+          className="md:hidden relative z-2 w-auto h-4 flex flex-col justify-between items-center"
+          onClick={() => setOpen(!open)}
         >
-          GET A DEMO
-        </Link>
+          <span
+            className={`block h-0.5 w-6 bg-gray-800 transition-transform rounded-full ${
+              open ? "rotate-45 translate-y-1.5" : ""
+            }`}
+          />
+          <span
+            className={`block h-0.5 w-6 bg-gray-800 transition-opacity rounded-full ${
+              open ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`block h-0.5 w-6 bg-gray-800 transition-transform rounded-full ${
+              open ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </button>
       </div>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="mobileMenu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", stiffness: 80, damping: 20 }}
+            className="fixed inset-0 h-screen w-screen z-[1] bg-white flex items-end"
+          >
+            <div className="flex flex-col items-start p-4 justify-center space-y-5 text-xl font-semibold h-[70vh] w-full ">
+              {links.map((link, index) => (
+                <Link
+                  key={index}
+                  href={link.url}
+                  onClick={() => setOpen(false)}
+                  className="hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {cta && (
+                <a
+                  href={cta.link}
+                  className=" mt-5 bg-primary text-white px-8 py-3 rounded-full font-semibold hover:opacity-85 transition"
+                >
+                  {cta.label}
+                </a>
+              )}
+
+              <div className="flex gap-5 mt-auto">
+                {socialMedia.map((media, index) => (
+                  <SocialMediaRender data={media} key={index} />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

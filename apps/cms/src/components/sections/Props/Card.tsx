@@ -17,7 +17,7 @@ export function Card({
 
   return (
     <div
-      className="sticky top-0 md:top-25 flex flex-col md:flex-row justify-end w-full h-auto lg:h-[580px] rounded-[20px]"
+      className="sticky top-12 md:top-25 flex flex-col md:flex-row justify-end w-full h-auto lg:h-[580px] rounded-[20px]"
       style={{ backgroundColor: color }}
     >
       <div className="w-full md:w-1/2 px-5 md:px-10 py-10">

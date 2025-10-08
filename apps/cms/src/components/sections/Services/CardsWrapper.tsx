@@ -228,7 +228,7 @@ export default function CardsWrapper({ cards }: { cards: CardData[] }) {
             </div>
 
             {/* Таб-лист */}
-            <div className="md:ml-4 pt-4 space-y-4 flex justify-evenly gap-2 md:block w-full md:w-max bg-white md:bg-transparent">
+            <div className="md:ml-4 max-[768px]:pt-14 space-y-4 flex justify-evenly gap-2 md:block w-full md:w-max bg-white md:bg-transparent">
               {cards.map((card, i) => (
                 <div
                   key={i}

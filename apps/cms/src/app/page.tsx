@@ -30,7 +30,6 @@ export default async function Home() {
       <Testimonials data={page.testimonials} />
       <Solutions data={page.solutions} />
       <CtaSection data={page.ctaSection} />
-      <Footer data={page.footer} global={page.globalSetting} />
     </>
   );
 }

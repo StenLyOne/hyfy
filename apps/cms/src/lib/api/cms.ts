@@ -2,6 +2,7 @@ import { HOME_TAG } from "../cache-tags";
 import { GlobalSettingData } from "../types/globalSetting";
 import { CtaSectionData } from "../types/sections/ctaSection";
 import { FooterData } from "../types/sections/footer";
+import { HeaderData } from "../types/sections/header";
 import { HeroData } from "../types/sections/hero";
 import { HowItWorksData } from "../types/sections/howItWorks";
 import { PartnersData } from "../types/sections/partners";
@@ -15,6 +16,7 @@ import { Mock } from "./mocks";
 
 interface Page {
   globalSetting: GlobalSettingData;
+  header: HeaderData
   hero: HeroData;
   workflow: WorkFlowData;
   partners: PartnersData;
@@ -33,6 +35,7 @@ export class GetHomePage {
       // локальные моки, без apiClient
       return {
         globalSetting: Mock.globalSetting,
+        header: Mock.header,
         hero: Mock.hero,
         workflow: Mock.workflow,
         partners: Mock.partners,
@@ -50,6 +53,7 @@ export class GetHomePage {
     const res = await apiClient<{
       data: {
         globalSetting: GlobalSettingData;
+        header: HeaderData,
         hero: HeroData;
         workflow: WorkFlowData;
         partners: PartnersData;
@@ -67,6 +71,7 @@ export class GetHomePage {
 
     return {
       globalSetting: res.data.globalSetting,
+      header: res.data.header,
       hero: res.data.hero,
       workflow: res.data.workflow,
       partners: res.data.partners,

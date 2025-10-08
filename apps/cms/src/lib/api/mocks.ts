@@ -9,9 +9,11 @@ import { SolutionsData } from "../types/sections/solutions";
 import { CtaSectionData } from "../types/sections/ctaSection";
 import { GlobalSettingData } from "../types/globalSetting";
 import { FooterData } from "../types/sections/footer";
-  
+import { HeaderData } from "../types/sections/header";
+
 interface Page {
   globalSetting: GlobalSettingData;
+  header: HeaderData;
   hero: HeroData;
   workflow: WorkFlowData;
   partners: PartnersData;
@@ -25,6 +27,22 @@ interface Page {
 }
 
 export const Mock: Page = {
+  header: {
+    links: [
+      { label: "Workflow", type: "anchor", url: "workflow" },
+      { label: "Services", type: "anchor", url: "services" },
+      { label: "How it works", type: "anchor", url: "how-it-works" },
+      { label: "Testimonials", type: "anchor", url: "testimonials" },
+      { label: "Our Solutions", type: "anchor", url: "our-solutions" },
+    ],
+    cta: {
+      label: "Get a Demo",
+      color: "primary",
+      link: "/adasd",
+      type: "arrow-right",
+      variant: "solid",
+    },
+  },
   globalSetting: {
     logo: "/logos/logo.png",
     shortLogo: "/logos/logo-short.png",
@@ -52,7 +70,7 @@ export const Mock: Page = {
       {
         label: "Get a Demo",
         color: "primary",
-        link: "/adasd",
+        link: "https://www.hyfe.com/",
         type: "arrow-right",
         variant: "solid",
       },

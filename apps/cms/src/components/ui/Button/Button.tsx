@@ -1,23 +1,19 @@
 import type { Button as ButtonType } from "src/lib/types/ui/button";
-import { useIsExternalLink } from "src/hooks/useIsExternalLink";
+import { getLinkKind } from "src/hooks/getLinkKind";
 import Link from "next/link";
 import clsx from "clsx";
 
-export function Button({
-  data,
-  onClick,
-}: {
-  data: ButtonType;
-  onClick?: () => void;
-}) {
+export function Button({ data }: { data: ButtonType }) {
   const { color, label, link, type, variant } = data;
 
-  const external = useIsExternalLink(link);
+  const external = getLinkKind(link);
 
   // базовые стили
   const baseClasses = `group cursor-pointer w-full md:w-max inline-flex items-center gap-4 uppercase text-[20px] font-semibold  transition-opacity duration-200
   hover:opacity-90 ${
-    type === "default" ? "px-15 py-4.25 justify-center" : "py-2 pl-5 pr-2 justify-between"
+    type === "default"
+      ? "px-15 py-4.25 justify-center"
+      : "py-2 pl-5 pr-2 justify-between"
   } rounded-full`;
 
   const colorClasses = {
@@ -138,8 +134,9 @@ export function Button({
 
   const classes = clsx(baseClasses, colorClasses, variantClasses);
 
-  return external && link != "" ? (
+  return external === "external" ? (
     <a
+      id="A"
       className={classes}
       style={outlineStyle}
       href={link}
@@ -148,13 +145,12 @@ export function Button({
     >
       {content}
     </a>
-  ) : link === "" && onClick ? (
-    <button style={outlineStyle} onClick={() => onClick()} className={classes}>
-      {" "}
+  ) : external === "anchor" ? (
+    <a id="A INNER" href={link} style={outlineStyle} className={classes}>
       {content}
-    </button>
+    </a>
   ) : (
-    <Link style={outlineStyle} className={classes} href={link}>
+    <Link id="LINK" style={outlineStyle} className={classes} href={link}>
       {content}
     </Link>
   );
