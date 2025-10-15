@@ -5,7 +5,7 @@ type FetchOpts = {
 };
 export class ApiClient {
   private readonly BASE = process.env.NEXT_PUBLIC_STRAPI_URL ?? "";
-  private readonly TOKEN = process.env.NEXT_PUBLIC_STRAPI_TOKEN ?? "";
+  private readonly TOKEN = process.env.STRAPI_TOKEN ?? "";
 
   async get<T = unknown>(
     path: string,

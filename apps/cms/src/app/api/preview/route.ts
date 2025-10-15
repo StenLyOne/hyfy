@@ -12,7 +12,7 @@ export async function GET(req: Request) {
   const slug =
     searchParams.get("slug") ?? process.env.STRAPI_HOME_SLUG ?? "home";
 
-  if (secret !== process.env.NEXT_PUBLIC_STRAPI_PREVIEW_SECRET) {
+  if (secret !== process.env.STRAPI_PREVIEW_SECRET) {
     return new Response("Invalid token", { status: 401 });
   }
 
