@@ -1,16 +1,20 @@
-export type LinkType = "anchor" | "external" | "internal";
-
 export interface FooterLink {
   label: string;
-  type: LinkType;
-  url: string;
+  link: string;
 }
 
 export interface FooterColumn {
-  title: string;
-  links: FooterLink[];
+  heading?: string;
+  nav_links?: FooterLink[];
 }
 
 export interface FooterData {
-  columns: FooterColumn[];
+  columns?: FooterColumn[];
+  policy_links?: PolicyLinks[];
+  copyright?: string;
+}
+
+export interface PolicyLinks {
+  label: string;
+  link: string;
 }

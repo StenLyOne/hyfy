@@ -1,54 +1,78 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRef, useLayoutEffect, useState } from "react";
-import { AnimatedText } from "src/components/Animation/AnimatedText";
+import { motion, useAnimation } from "framer-motion";
+import { useRef, useLayoutEffect, useState, useEffect } from "react";
+import { Content } from "src/components/ui/Button/Content/Content";
 import { PartnersData } from "src/lib/types/sections/partners";
 
-export function   Partners({ data }: { data: PartnersData }) {
-  const { logos, text, title } = data;
+export function Partners({ data }: { data: PartnersData }) {
+  const { logo, content, heading, sub_heading, cta } = data;
+
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
+  const controls = useAnimation();
 
   useLayoutEffect(() => {
     if (containerRef.current && contentRef.current) {
-      setDistance(
-        containerRef.current.scrollWidth - contentRef.current.offsetWidth
-      );
+      const containerWidth = containerRef.current.offsetWidth;
+      const contentWidth = contentRef.current.scrollWidth;
+      const diff = contentWidth - containerWidth;
+      setDistance(diff > 0 ? diff : 0);
     }
-  }, [logos]);
+  }, [logo]);
+
+  useEffect(() => {
+    if (!distance) return;
+
+    const loop = async () => {
+      while (true) {
+        await controls.start({
+          x: -distance,
+          transition: { duration: 25, ease: "linear" },
+        });
+        await controls.start({
+          x: 0,
+          transition: { duration: 25, ease: "linear" },
+        });
+      }
+    };
+    loop();
+  }, [distance, controls]);
 
   return (
     <section className="bg-white overflow-hidden z-3 relative">
       <div className="pt-[140px] flex flex-col gap-10 md:gap-20">
-        <AnimatedText className="container !py-0  space-y-4 min-w-[277px] px-4 md:px-0 bg-white z-1">
-          <h2 className="h2-large">{title}</h2>
-          <p>{text}</p>
-        </AnimatedText>
+        {(heading || sub_heading || cta || content) && (
+          <div className="container !py-0 min-w-[277px]">
+            <div className="">
+              <Content
+                classH="text-balance"
+                content={content}
+                cta={cta}
+                heading={heading}
+                sub_heading={sub_heading}
+              />
+            </div>
+          </div>
+        )}
 
-        {/* Внешняя маска */}
-        <div ref={containerRef} className="relative overflow-hidden w-[150%] ">
-          {/* Двигающаяся лента */}
+        {/* Обёртка для горизонтального движения */}
+        <div ref={containerRef} className="relative overflow-hidden w-full">
           <motion.div
             ref={contentRef}
-            className="grid items-center grid-flow-col auto-cols-max gap-10 md:gap-[200px]"
-            animate={{ x: [0, -distance] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 20, // скорость (сек)
-              ease: "linear",
-            }}
+            className="grid items-start grid-flow-col auto-cols-max gap-10 md:gap-[200px]"
+            animate={controls}
           >
-            {[...logos, ...logos].map((logo, index) => (
-              <img
-                key={index}
-                src={logo.url}
-                alt={logo.alt}
-                className="w-auto h-auto max-w-none"
-              />
-            ))}
+            {logo?.length > 0 &&
+              [...logo, ...logo].map((logo, index) => (
+                <img
+                  key={index}
+                  src={logo.url}
+                  alt={logo.alt}
+                  className="w-auto h-auto max-w-none"
+                />
+              ))}
           </motion.div>
         </div>
       </div>

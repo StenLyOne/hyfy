@@ -4,8 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import { CardData } from "src/lib/types/ui/card";
 import { Card } from "./Card";
 import { ButtonArrow } from "src/components/ui/Button/ButtonArrow";
+import { TestimonialCard } from "src/lib/types/sections/testimonials";
 
-export function CardsWrapper({ cards }: { cards: CardData[] }) {
+export function CardsWrapper({ data }: { data: TestimonialCard[] }) {
   const [current, setCurrent] = useState(0);
   const [step, setStep] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,9 +14,8 @@ export function CardsWrapper({ cards }: { cards: CardData[] }) {
   useEffect(() => {
     if (containerRef.current) {
       // берём первую карточку
-      const firstCard = containerRef.current.querySelector<HTMLDivElement>(
-        ".card-item"
-      );
+      const firstCard =
+        containerRef.current.querySelector<HTMLDivElement>(".card-item");
       if (firstCard) {
         setStep(firstCard.offsetWidth + 20); // ширина + gap (px)
       }
@@ -23,7 +23,7 @@ export function CardsWrapper({ cards }: { cards: CardData[] }) {
   }, []);
 
   const next = () => {
-    if (current < cards.length - 1) {
+    if (current < data.length - 1) {
       setCurrent((prev) => prev + 1);
     }
   };
@@ -44,7 +44,7 @@ export function CardsWrapper({ cards }: { cards: CardData[] }) {
             transform: `translateX(-${current * step}px)`,
           }}
         >
-          {cards.map((card, index) => (
+          {data.map((card, index) => (
             <div
               key={index}
               className="card-item flex-shrink-0 w-[85%] sm:w-1/2 lg:w-[32%] "
@@ -56,14 +56,16 @@ export function CardsWrapper({ cards }: { cards: CardData[] }) {
       </div>
 
       {/* кнопки */}
-      <div className=" left-0 bottom-0 hidden md:flex gap-2 ">
-        <div onClick={prev} className="rotate-180">
-          <ButtonArrow className="bg-primary hover:bg-white text-white hover:text-primary border-2" />
+      {data.length > 3 && (
+        <div className=" left-0 bottom-0 hidden md:flex gap-2 ">
+          <div onClick={prev} className="rotate-180">
+            <ButtonArrow className="bg-primary hover:bg-white text-white hover:text-primary border-2" />
+          </div>
+          <div onClick={next}>
+            <ButtonArrow className="bg-primary hover:bg-white text-white hover:text-primary border-2" />
+          </div>
         </div>
-        <div onClick={next} >
-          <ButtonArrow className="bg-primary hover:bg-white text-white hover:text-primary border-2" />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

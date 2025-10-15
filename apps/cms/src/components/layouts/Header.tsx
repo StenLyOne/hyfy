@@ -6,18 +6,18 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScreenSize } from "src/hooks/useScreenSize";
 import { HeaderData } from "src/lib/types/sections/header";
-import { GlobalSettingData } from "src/lib/types/globalSetting";
 import { SocialMediaRender } from "../ui/SocialMediaRender";
+import { GeneralSettingData } from "src/lib/types/sections/generalSettingData";
 
 export function Header({
   data,
-  global,
+  settings,
 }: {
   data: HeaderData;
-  global: GlobalSettingData;
+  settings: GeneralSettingData;
 }) {
-  const { links, cta } = data;
-  const { shortLogo, socialMedia } = global;
+  const { nav_links, cta } = data;
+  const { logo_icon, social_media } = settings;
   const [open, setOpen] = useState(false);
   const [isTop, setIsTop] = useState(true);
   const { width } = useScreenSize();
@@ -38,7 +38,7 @@ export function Header({
         {/* LOGO */}
         <Link href="/" className="flex items-center z-2">
           <Image
-            src={shortLogo}
+            src={logo_icon?.url || "/logos/logo-short.png"}
             alt="Logo"
             width={68}
             height={48}
@@ -47,21 +47,23 @@ export function Header({
         </Link>
 
         {/* NAV */}
-        <nav
-          className={`hidden md:flex space-x-8 ${
-            isTop ? "text-white" : "text-gray-800"
-          }  font-medium`}
-        >
-          {links.map((link, index) => (
-            <Link
-              key={index}
-              href={link.url}
-              className="hover:text-primary transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        {nav_links && nav_links.length > 0 && (
+          <nav
+            className={`hidden md:flex space-x-8 ${
+              isTop ? "text-white" : "text-gray-800"
+            }  font-medium`}
+          >
+            {nav_links.map((l, index) => (
+              <a
+                key={index}
+                href={l.link}
+                className="hover:text-primary transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+        )}
 
         {/* CTA  */}
 
@@ -109,16 +111,18 @@ export function Header({
             className="fixed inset-0 h-screen w-screen z-[1] bg-white flex items-end"
           >
             <div className="flex flex-col items-start p-4 justify-center space-y-5 text-xl font-semibold h-[70vh] w-full ">
-              {links.map((link, index) => (
-                <Link
-                  key={index}
-                  href={link.url}
-                  onClick={() => setOpen(false)}
-                  className="hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {nav_links &&
+                nav_links.length > 0 &&
+                nav_links.map((l, index) => (
+                  <Link
+                    key={index}
+                    href={l.link}
+                    onClick={() => setOpen(false)}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
 
               {cta && (
                 <a
@@ -129,11 +133,13 @@ export function Header({
                 </a>
               )}
 
-              <div className="flex gap-5 mt-auto">
-                {socialMedia.map((media, index) => (
-                  <SocialMediaRender data={media} key={index} />
-                ))}
-              </div>
+              {social_media && social_media.length > 0 && (
+                <div className="flex gap-5 mt-auto">
+                  {social_media.map((media, index) => (
+                    <SocialMediaRender data={media} key={index} />
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         )}

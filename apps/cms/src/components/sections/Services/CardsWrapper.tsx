@@ -150,9 +150,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { lenisInstance } from "src/components/Animation/LenisProvide";
 import { CardItem } from "./Card";
-import { CardData } from "src/lib/types/ui/card";
+import { CardServices } from "src/lib/types/sections/services";
 
-export default function CardsWrapper({ cards }: { cards: CardData[] }) {
+export default function CardsWrapper({ card }: { card: CardServices[] }) {
   const [active, setActive] = useState(0); // индекс активной карточки/таба
   const tabEls = useRef<Record<number, HTMLDivElement | null>>({}); // DOM-узлы табов слева
   const refs = useRef<Record<number, HTMLDivElement | null>>({}); // DOM-узлы карточек справа
@@ -215,7 +215,7 @@ export default function CardsWrapper({ cards }: { cards: CardData[] }) {
   return (
     <div className="relative w-full flex justify-between z-0">
       {/* Левая колонка */}
-      <div className="absolute w-full md:max-w-[300px] top-0 left-0 h-[350vh] z-10">
+      <div className="absolute w-full md:max-w-[300px] top-0 left-0 h-[350vh] z-11">
         <div className="relative h-full">
           <div className="sticky top-0 md:top-24 h-max flex ">
             {/* Вертикальная линия с точкой */}
@@ -228,8 +228,8 @@ export default function CardsWrapper({ cards }: { cards: CardData[] }) {
             </div>
 
             {/* Таб-лист */}
-            <div className="md:ml-4 max-[768px]:pt-14 space-y-4 flex justify-evenly gap-2 md:block w-full md:w-max bg-white md:bg-transparent">
-              {cards.map((card, i) => (
+            <div className="md:ml-4 max-[768px]:pt-16 space-y-4 flex justify-evenly gap-2 md:block w-full md:w-max bg-white md:bg-transparent">
+              {card.map((c, i) => (
                 <div
                   key={i}
                   ref={(el) => {
@@ -244,7 +244,7 @@ export default function CardsWrapper({ cards }: { cards: CardData[] }) {
                         : "md:text-gray-500 bg-[#C6E8E6] font-normal"
                     }`}
                   >
-                    <img className="w-6 h-6" src={card.icon} alt="" />
+                    <img className="w-6 h-6" src={c.icon?.url} alt="" />
                   </span>
                   <span
                     className={`hidden md:block cursor-pointer transition-colors text-balance w-full ${
@@ -253,7 +253,7 @@ export default function CardsWrapper({ cards }: { cards: CardData[] }) {
                         : "md:text-gray-500"
                     }`}
                   >
-                    {card.title}
+                    {c.heading}
                   </span>
                 </div>
               ))}
@@ -265,14 +265,14 @@ export default function CardsWrapper({ cards }: { cards: CardData[] }) {
 
       {/* Правая колонка */}
       <div className="space-y-6 w-full md:max-w-[1074px] z-2 mt-24 md:mt-0">
-        {cards.map((card, i) => (
+        {card.map((c, i) => (
           <div
             key={i}
             ref={(el) => {
               refs.current[i] = el;
             }}
           >
-            <CardItem card={card} />
+            <CardItem card={c} />
           </div>
         ))}
       </div>

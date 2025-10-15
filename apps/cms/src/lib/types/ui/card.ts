@@ -19,3 +19,4 @@ export interface CardLink {
     colorEnd: string;
   };
 }
+

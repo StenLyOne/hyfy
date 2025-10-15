@@ -1,9 +1,11 @@
 import { Button } from "../ui/button";
+import { Paragraph } from "../ui/content";
+import { MediaData } from "../ui/media";
 
 export interface HeroData {
-  title: string;
-  subtitle: string;
-  text: string;
-  ctas: Button[];
-  video: string;
+  heading?: string;
+  sub_heading?: string;
+  content?: Paragraph[];
+  cta?: Button[];
+  media?: MediaData ;
 }

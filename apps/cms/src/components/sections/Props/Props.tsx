@@ -1,9 +1,9 @@
-import { SubTitle } from "src/components/ui/Subtitle/SubTitle";
 import { PropsData } from "src/lib/types/sections/props";
 import { Card } from "./Card";
+import { Content } from "src/components/ui/Button/Content/Content";
 
 export function Props({ data }: { data: PropsData }) {
-  const { cards, subtitle, text, title } = data;
+  const { card, sub_heading, content, heading, cta } = data;
 
   function getCardStyles(index: number) {
     const h = 160;
@@ -34,21 +34,28 @@ export function Props({ data }: { data: PropsData }) {
   return (
     <section className="w-full bg-white  z-3 relative">
       <div className="container !px-0 md:!px-10">
-        <div>
-          {subtitle && <SubTitle label={subtitle} />}
-          {title && <h2>{title}</h2>}
-          {text && <p>{text}</p>}
-        </div>
-        <div className="space-y-10">
-          {cards.map((card, index) => (
-            <Card
-              data={card}
-              key={index}
-              styles={getCardStyles(index)}
-              svg={dataSvg[index]}
-            />
-          ))}
-        </div>
+        <Content
+          classContainer="mt-10 md:mb-15 items-center flex justify-center flex-col text-center"
+          classH="h2-default text-balance"
+          classP="text-balance"
+          content={content}
+          cta={cta}
+          heading={heading}
+          sub_heading={sub_heading}
+        />
+
+        {card && card.length > 0 && (
+          <div className="space-y-10">
+            {card.map((card, index) => (
+              <Card
+                data={card}
+                key={index}
+                styles={getCardStyles(index)}
+                svg={dataSvg[index]}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,32 +1,36 @@
 import Image from "next/image";
 import { RatingCircle } from "src/components/ui/RatingCircle/RatingCircle";
-import { CardData } from "src/lib/types/ui/card";
+import { TestimonialCard } from "src/lib/types/sections/testimonials";
 
-export function Card({ testimonial }: { testimonial: CardData }) {
-  const { title, id, media, text, subtitle } = testimonial;
+export function Card({ testimonial }: { testimonial: TestimonialCard }) {
+  const { avatar, name, paragraph, rating, role } = testimonial;
   return (
     <div className="space-y-6 p-4 md:p-6 h-full w-full bg-white rounded-[20px]">
       <div className="flex gap-3">
-        {media && (
+        {avatar && (
           <Image
-            src={media?.url}
-            alt={media?.alt}
+            src={avatar?.url || "/avatars/avatar.png"}
+            alt={avatar?.alt ?? "avatar"}
             width={50}
             height={50}
             className="rounded-full min-w-[50px] min-h-[50px]"
           />
         )}
         <div>
-          <h5 className="body-medium font-mediu line-clamp-1">{title}</h5>
-          <p className="body-small font-normal text-gray-500 line-clamp-1">{subtitle}</p>
+          {name && (
+            <h5 className="body-large font-semibold line-clamp-1">{name}</h5>
+          )}
+          {role && (
+            <p className="body-small text-gray-500 line-clamp-1">{role}</p>
+          )}
         </div>
-        {id && (
+        {/* {rating && (
           <div className="ml-auto">
-            <RatingCircle value={id} />
+            <RatingCircle value={rating} />
           </div>
-        )}
+        )} */}
       </div>
-      <p className="body-medium">{text}</p>
+      <p className="body-medium">{paragraph}</p>
     </div>
   );
 }

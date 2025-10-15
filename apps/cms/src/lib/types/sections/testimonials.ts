@@ -1,10 +1,20 @@
 import { Button } from "../ui/button";
-import { CardData } from "../ui/card";
+import { Paragraph } from "../ui/content";
 
+export interface TestimonialCard {
+  name?: string;
+  role?: string;
+  rating?: number;
+  paragraph?: string;
+  avatar?: {
+    url?: string;
+    alt?: string;
+  };
+}
 export interface TestimonialsData {
-  title?: string;
-  subtitle?: string;
-  text?: string;
-  ctas?: Button[];
-  cards: CardData[];
+  heading?: string;
+  sub_heading?: string;
+  content?: Paragraph[];
+  cta?: Button[];
+  testimonials?: TestimonialCard[];
 }

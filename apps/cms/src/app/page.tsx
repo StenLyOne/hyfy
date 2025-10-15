@@ -5,31 +5,41 @@ import { Partners } from "src/components/sections/Prtners/Partners";
 import { Services } from "src/components/sections/Services/Services";
 import { WorkFlow } from "src/components/sections/WorkFlow/WorkFlow";
 import { Testimonials } from "src/components/sections/Testimonials/Testimonials";
-import { GetHomePage } from "src/lib/api/cms";
 import { Solutions } from "src/components/sections/Solutions/Solutions";
 import { CtaSection } from "src/components/sections/CtaSection/CtaSection";
-import { Footer } from "src/components/layouts/Footer/Footer";
 import { HeroPlug } from "src/components/sections/Hero/HeroPlug";
 import { SectionWrapper } from "src/components/Animation/SectionWrapper";
+import { GetHomePages } from "src/lib/api/getHome";
+import { draftMode } from "next/headers";
 
 export default async function Home() {
-  const api = new GetHomePage();
-  const page = await api.fetch();
+  const { isEnabled: isDraftMode } = await draftMode();
+
+  const api = new GetHomePages("cough-monitor-suite", "home", isDraftMode);
+  const hero = await api.getHero();
+  const workflow = await api.getWorkflow();
+  const partners = await api.getPartners();
+  const props = await api.getProps();
+  const services = await api.getServices();
+  const howItWorks = await api.getHowItWorks();
+  const testimonials = await api.getTestimonials();
+  const solutions = await api.getSolutions();
+  const cta = await api.getCta();
 
   return (
     <>
-      <Hero data={page.hero} />
+      <Hero data={hero} />
       <HeroPlug />
       <SectionWrapper>
-        <WorkFlow data={page.workflow} />
+        <WorkFlow data={workflow} />
       </SectionWrapper>
-      <Partners data={page.partners} />
-      <Props data={page.props} />
-      <Services data={page.services} />
-      <HowItWorks data={page.howItWorks} />
-      <Testimonials data={page.testimonials} />
-      <Solutions data={page.solutions} />
-      <CtaSection data={page.ctaSection} />
+      <Partners data={partners} />
+      <Props data={props} />
+      <Services data={services} />
+      <HowItWorks data={howItWorks} />
+      <Testimonials data={testimonials} />
+      <Solutions data={solutions} />
+      <CtaSection data={cta} />
     </>
   );
 }

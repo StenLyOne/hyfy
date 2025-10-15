@@ -1,10 +1,22 @@
 import { Button } from "../ui/button";
-import { CardData } from "../ui/card";
+import { Paragraph } from "../ui/content";
+import { Media } from "../ui/media";
+
+export interface CardServices {
+  heading: string;
+  sub_heading?: string;
+  paragraph: string;
+  icon?: {
+    url: string;
+    alt: string;
+  };
+  media?: Media;
+}
 
 export interface ServicesData {
-  title?: string;
-  subtitle?: string;
-  text?: string;
-  ctas?: Button[];
-  cards: CardData[];
+  heading?: string;
+  sub_heading?: string;
+  content?: Paragraph[];
+  cta?: Button[];
+  card?: CardServices[];
 }

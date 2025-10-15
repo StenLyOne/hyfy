@@ -1,4 +1,4 @@
-import { SocialMedia } from "src/lib/types/globalSetting";
+import { SocialMedia } from "src/lib/types/sections/generalSettingData";
 
 const youTube = (
   <svg
@@ -100,16 +100,16 @@ const linkedin = (
 );
 
 export function SocialMediaRender({ data }: { data: SocialMedia }) {
-  const { label, link } = data;
+  const { target, link } = data;
 
   let icon = null;
-  if (label === "youTube") {
+  if (target === "youtube") {
     icon = youTube;
-  } else if (label === "linkedin") {
+  } else if (target === "linkedin") {
     icon = linkedin;
-  } else if (label === "x") {
-    icon = x;
-  } else if (label === "facebook") {
+  } else if (target === "x") {
+    icon = x; 
+  } else if (target === "facebook") {
     icon = facebook;
   }
 

@@ -1,15 +1,15 @@
 import clsx from "clsx";
 import Image from "next/image";
-import type { CardData } from "src/lib/types/ui/card";
+import { CardWorkFlow } from "src/lib/types/sections/workFlow";
 
 export function Card({
   data,
   position,
 }: {
-  data: CardData;
+  data: CardWorkFlow;
   position: { 0: string; 1: string };
 }) {
-  const { title, media, subtitle, text } = data;
+  const { heading, media, sub_heading, paragraph } = data;
 
   return (
     <div className="group mb-auto">
@@ -17,7 +17,7 @@ export function Card({
         <div className="relative w-full h-full  sm:max-w-[330px] max-h-[380px] bg-[#F7F7F9] rounded-[20px] overflow-hidden">
           <Image
             src={media.url}
-            alt={media.alt}
+            alt={media.alt ?? ""}
             width={330}
             height={380}
             className="z-1 relative group-hover:scale-110 transform-scale duration-500  "
@@ -37,16 +37,18 @@ export function Card({
           ></div>{" "}
         </div>
       )}
-      <div className="mt-4">
-        {subtitle && (
+      <div className="mt-4 sm:max-w-[330px]">
+        {sub_heading && (
           <p className="text-[16px] leading-5 text-gray-500 uppercase mb-1">
-            {subtitle}
+            {sub_heading}
           </p>
         )}
-        {title && (
-          <h5 className={`body-large ${text ? "mb-3" : "mb-0"}`}>{title}</h5>
+        {heading && (
+          <h5 className={`font-medium !text-[20px] body-large ${paragraph ? "mb-3" : "mb-0"}`}>
+            {heading}
+          </h5>
         )}
-        {text && <p>{text}</p>}
+        {paragraph && <p>{paragraph}</p>}
       </div>
     </div>
   );

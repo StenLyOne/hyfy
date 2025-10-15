@@ -4,12 +4,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { AnimatedText } from "src/components/Animation/AnimatedText";
 import { Button } from "src/components/ui/Button/Button";
+import { SubTitle } from "src/components/ui/Subtitle/SubTitle";
 import { Video } from "src/components/Video/Video";
 import { useScreenSize } from "src/hooks/useScreenSize";
 import { CtaSectionData } from "src/lib/types/sections/ctaSection";
 
 export function CtaSection({ data }: { data: CtaSectionData }) {
-  const { ctas, text, title, video } = data;
+  const { content, cta, heading, sub_heading, video } = data;
   const { width } = useScreenSize();
 
   const refContainer = useRef(null);
@@ -52,30 +53,41 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
             borderRadius: radius,
           }}
         >
-          <Video img="/images/preview.png" video={video} />
+          {video?.video && <Video video={video} />}
+
           <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60"></div>
-        
+
           <AnimatedText className="max-w-[750px] mx-auto text-center space-y-6 flex flex-col items-center justify-center h-full relative z-10">
-            {title && (
+            {sub_heading && (
+              <motion.div
+                style={{ opacity: opacity }}
+                className="body-large text-white text-balance"
+              >
+                <SubTitle label={sub_heading} />
+              </motion.div>
+            )}
+            {heading && (
               <motion.h2
                 style={{ opacity: opacity }}
                 className="h2-large text-white text-balance"
               >
-                {title}
+                {heading}
               </motion.h2>
             )}
-            {text && (
-              <motion.p
-                style={{ opacity: opacity }}
-                className="body-large text-white text-balance"
-              >
-                {text}
-              </motion.p>
+
+            {content?.length != 0 && (
+              <motion.div className="space-y-4" style={{ opacity: opacity }}>
+                {content?.map((c, i) => (
+                  <p key={i} className="body-large text-white text-balance">
+                    {c.paragraph}
+                  </p>
+                ))}
+              </motion.div>
             )}
-            {ctas && (
+            {cta && (
               <motion.div style={{ opacity: opacity }} className="space-x-5">
-                {ctas.map((cta, i) => (
-                  <Button key={i} data={cta} />
+                {cta.map((c, i) => (
+                  <Button key={i} data={c} />
                 ))}
               </motion.div>
             )}

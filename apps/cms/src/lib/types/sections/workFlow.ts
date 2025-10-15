@@ -1,10 +1,17 @@
 import { Button } from "../ui/button";
-import { CardData } from "../ui/card";
+import { Paragraph } from "../ui/content";
+import { Media } from "../ui/media";
 
+export interface CardWorkFlow {
+  heading: string;
+  sub_heading: string;
+  paragraph: string;
+  media?: Media;
+}
 export interface WorkFlowData {
-  title?: string;
-  subtitle?: string;
-  text?: string;
-  ctas?: Button[];
-  cards: CardData[]
+  heading?: string;
+  sub_heading?: string;
+  content?: Paragraph[];
+  cta?: Button[];
+  card?: CardWorkFlow[];
 }

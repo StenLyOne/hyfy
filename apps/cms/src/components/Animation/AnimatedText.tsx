@@ -1,14 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 import { container, item } from "./variants";
+import type { CSSProperties } from "react";
 
 export function AnimatedText({
   children,
   className,
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
+  style?: CSSProperties | Record<string, string | number | MotionValue>;
 }) {
   return (
     <motion.div
@@ -16,7 +19,8 @@ export function AnimatedText({
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.4 }}
-      className={className}
+      className={` ${className}`}
+      style={style}
     >
       {Array.isArray(children) ? (
         children.map((child, index) => (

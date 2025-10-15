@@ -1,19 +1,22 @@
 import { ServicesData } from "src/lib/types/sections/services";
 import CardsWrapper from "./CardsWrapper";
-import { SubTitle } from "src/components/ui/Subtitle/SubTitle";
-import { AnimatedText } from "src/components/Animation/AnimatedText";
+import { Content } from "src/components/ui/Button/Content/Content";
 
 export function Services({ data }: { data: ServicesData }) {
-  const { cards, title, subtitle, text } = data;
+  const { card, heading, sub_heading, content, cta } = data;
   return (
-    <section className=" bg-white w-full  z-100 relative">
+    <section id="services" className=" bg-white w-full  z-100 relative">
       <div className="container !py-0 md:!pt-[140px] !pt-[100px] space-y-6 md:space-y-20 ">
-        <AnimatedText className="ml-auto min-[1120px]:w-[1074px] space-y-6">
-          {subtitle && <SubTitle label={subtitle} />}
-          {title && <h2 className="h2-large text-balance">{title}</h2>}
-          {text && <p>{text}</p>}
-        </AnimatedText>
-        <CardsWrapper cards={cards} />
+        <Content
+          classContainer="ml-auto min-[1120px]:w-[1074px] "
+          classH="text-balance"
+          classP="text-balance"
+          content={content}
+          cta={cta}
+          heading={heading}
+          sub_heading={sub_heading}
+        />
+        {card && card.length > 0 && <CardsWrapper card={card} />}
       </div>
     </section>
   );

@@ -1,21 +1,22 @@
 import Image from "next/image";
-import type { CardData } from "src/lib/types/ui/card";
+import { SubTitle } from "src/components/ui/Subtitle/SubTitle";
+import { CardServices } from "src/lib/types/sections/services";
 
-export function CardItem({ card }: { card: CardData }) {
-  const { title, media, text } = card;
+export function CardItem({ card }: { card: CardServices }) {
+  const { media, heading, paragraph, sub_heading } = card;
   return (
     <div
-      id={title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-") // заменяем всё, кроме латиницы и цифр, на "-"
-        .replace(/(^-|-$)/g, "")}
+      id={heading}
       className="relative max-w-[1074px] w-full min-h-[400px] md:h-[400px] p-5 md:p-10 bg-gray-100  flex items-center justify-center rounded-[20px] overflow-hidden"
     >
       <div className="z-3 max-w-[600px] space-y-4 mr-auto mt-auto">
-        {title && (
-          <h3 className="h3-default text-white font-semibold">{title}</h3>
+        {sub_heading && <SubTitle label={sub_heading} />}
+        {heading && (
+          <h3 className="h3-default text-white font-semibold">{heading}</h3>
         )}
-        {text && <p className="text-white font-semibold body-medium">{text}</p>}
+        {paragraph && (
+          <p className="text-white font-semibold body-medium">{paragraph}</p>
+        )}
       </div>
 
       {media && (

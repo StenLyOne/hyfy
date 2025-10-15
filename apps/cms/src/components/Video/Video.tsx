@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { MediaData } from "src/lib/types/ui/media";
 
-export function Video({ img, video }: { img: string; video: string }) {
+
+export function Video({ video }: { video: MediaData }) {
   const [isReady, setIsReady] = useState(false);
 
   return (
     <div>
       {!isReady && (
         <Image
-          src={img}
+          src={video.placeholder?.url || "/images/preview.png"}
           alt=""
           fill
           className="absolute inset-0 object-cover"
@@ -19,8 +21,7 @@ export function Video({ img, video }: { img: string; video: string }) {
       )}
 
       <video
-        src={video}
-        poster={img}
+        src={video.video?.url}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-1 ${
           isReady ? "opacity-100" : "opacity-0"
         }`}

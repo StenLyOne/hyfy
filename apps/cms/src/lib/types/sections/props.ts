@@ -1,10 +1,19 @@
 import { Button } from "../ui/button";
-import { CardData } from "../ui/card";
+import { Paragraph } from "../ui/content";
+import { Media } from "../ui/media";
+
+export interface CardProps {
+  heading: string;
+  sub_heading: string;
+  paragraph: string;
+  media?: Media;
+}
 
 export interface PropsData {
-  title?: string;
-  subtitle?: string;
-  text?: string;
-  ctas?: Button[];
-  cards: CardData[];
+  admin_label?: string;
+  sub_heading?: string;
+  heading?: string;
+  content?: Paragraph[];
+  cta?: Button[];
+  card: CardProps[];
 }
