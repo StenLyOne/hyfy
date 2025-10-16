@@ -3,17 +3,35 @@ import type { NextConfig } from "next";
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
+
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error", "warn"] }
+        : false,
   },
+
   experimental: {
     optimizePackageImports: ["framer-motion"],
   },
+
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "*.strapiapp.com" }],
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 год
+    // Приводим тип явно
+    formats: ["avif", "webp"] as unknown as NonNullable<
+      NextConfig["images"]
+    >["formats"],
+  },
+
   async headers() {
     return [
       {
-        source: "/(.*).(js|css|png|jpg|webp|svg)",
+        source: "/:path*",
         headers: [
           {
             key: "Cache-Control",
@@ -23,27 +41,6 @@ const withBundleAnalyzer = bundleAnalyzer({
       },
     ];
   },
-});
-
-const nextConfig: NextConfig = {
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: "http",
-  //       hostname: "localhost",
-  //       port: "1337",
-  //       pathname: "/uploads/**", // путь к файлам Strapi
-  //     },
-  //   ],
-  // },
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "*.strapiapp.com" }, // разрешаем домены Strapi
-    ],
-    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 год для next/image
-    formats: ["image/avif", "image/webp"],
-  },
-  // compiler: { removeConsole: { exclude: ["error", "warn"] } },
 };
 
 export default withBundleAnalyzer(nextConfig);
