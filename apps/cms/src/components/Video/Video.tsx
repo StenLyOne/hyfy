@@ -25,7 +25,7 @@ export function Video({ video }: { video: MediaData }) {
   const preview = video.placeholder?.url || "/images/preview.webp";
 
   return (
-    <div ref={ref} className="relative w-full h-full overflow-hidden">
+    <div ref={ref} className=" w-full h-full overflow-hidden">
       {!ready && (
         <Image
           src={preview}
