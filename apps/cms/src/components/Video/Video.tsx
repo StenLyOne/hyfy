@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useState } from "react";
 import Image from "next/image";
@@ -8,13 +8,12 @@ export function Video({ video }: { video: MediaData }) {
   const [isReady, setIsReady] = useState(false);
 
   return (
-    <div>
+    <div className=" w-full h-full z-100">
       {!isReady && (
         <Image
           src={video.placeholder?.url || "/images/preview.png"}
           alt=""
-          width={video.placeholder?.width}
-          height={video.placeholder?.height}
+          fill
           className="absolute inset-0 object-cover"
           priority
         />
