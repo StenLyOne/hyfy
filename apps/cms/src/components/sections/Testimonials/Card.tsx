@@ -12,6 +12,7 @@ export function Card({ testimonial }: { testimonial: TestimonialCard }) {
             alt={avatar?.alt ?? "avatar"}
             width={50}
             height={50}
+            loading="lazy"
             className="rounded-full min-w-[50px] min-h-[50px]"
           />
         )}

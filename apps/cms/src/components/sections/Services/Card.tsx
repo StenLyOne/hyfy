@@ -25,6 +25,7 @@ export function CardItem({ card }: { card: CardServices }) {
           alt={media.alt}
           width={media.width}
           height={media.height}
+          loading="lazy"
           className="z-1 absolute inset-0 w-full h-full object-cover"
         ></Image>
       )}

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import Link from "next/link";
 import { SocialMediaRender } from "src/components/ui/SocialMediaRender";
 import { getLinkKind } from "src/hooks/getLinkKind";
@@ -16,16 +16,17 @@ export function Footer({
   const { columns, copyright, policy_links } = data;
   const { logo_full, social_media } = global;
 
-
   return (
     <footer className=" bg-white w-full  z-3 relative">
       <div className="container !py-0 !pt-[100px] !pb-10 space-y-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-10">
           <div className="space-y-10">
             <a href="#hero">
-              <img
+              <Image
                 src={logo_full?.url || "/logos/logo.png"}
                 alt={logo_full?.alt || "logo"}
+                width={logo_full?.width}
+                height={logo_full?.height}
               />
             </a>
 

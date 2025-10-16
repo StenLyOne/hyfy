@@ -4,7 +4,7 @@ import type { FooterData } from "../types/sections/footer";
 import type { GeneralSettingData } from "../types/sections/generalSettingData";
 import type { StrapiListResponse } from "../types/strapi/strapi";
 import { normalizeCTA, normalizeImage } from "./utils";
-import { GLOBAL_SETTING_TAG } from "./cache-tags";
+
 
 export type SiteSettings = {
   header: HeaderData;

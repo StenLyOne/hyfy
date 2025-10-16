@@ -92,6 +92,7 @@ export function Card({ card }: { card: CardLink }) {
                 src={media?.url}
                 width={media.width}
                 height={media.height}
+                loading="lazy"
                 className="h-auto max-h-[160px] md:max-h-[240px] object-contain"
               />
             </div>

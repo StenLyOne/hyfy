@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { CardData } from "src/lib/types/ui/card";
 import { Card } from "./Card";
 import { ButtonArrow } from "src/components/ui/Button/ButtonArrow";
 import { TestimonialCard } from "src/lib/types/sections/testimonials";

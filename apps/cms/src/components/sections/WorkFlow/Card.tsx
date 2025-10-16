@@ -20,6 +20,7 @@ export function Card({
             alt={media.alt ?? ""}
             width={media.width}
             height={media.height}
+            loading="lazy"
             className="z-1 relative group-hover:scale-110 transform-scale duration-500  "
           ></Image>
           {/* SHAPES */}
@@ -44,7 +45,11 @@ export function Card({
           </p>
         )}
         {heading && (
-          <h3 className={`font-medium !text-[20px] body-large ${paragraph ? "mb-3" : "mb-0"}`}>
+          <h3
+            className={`font-medium !text-[20px] body-large ${
+              paragraph ? "mb-3" : "mb-0"
+            }`}
+          >
             {heading}
           </h3>
         )}

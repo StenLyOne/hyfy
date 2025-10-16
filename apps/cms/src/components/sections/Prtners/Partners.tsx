@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useAnimation } from "../../../lib/motion";
 import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { Content } from "src/components/ui/Content/Content";
@@ -66,10 +67,12 @@ export function Partners({ data }: { data: PartnersData }) {
           >
             {logo?.length > 0 &&
               [...logo, ...logo].map((logo, index) => (
-                <img
+                <Image
                   key={index}
                   src={logo.url}
                   alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
                   className="w-auto h-auto max-w-none"
                 />
               ))}

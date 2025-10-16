@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -12,10 +12,11 @@ export function Video({ video }: { video: MediaData }) {
       {!isReady && (
         <Image
           src={video.placeholder?.url || "/images/preview.png"}
-          alt=""
+          alt="preview"
           fill
           className="absolute inset-0 object-cover"
           priority
+          fetchPriority="high"
         />
       )}
 
@@ -29,6 +30,8 @@ export function Video({ video }: { video: MediaData }) {
         muted
         playsInline
         loop
+        poster={video.placeholder?.url || "/images/preview.png"}
+        preload="none"
       />
     </div>
   );

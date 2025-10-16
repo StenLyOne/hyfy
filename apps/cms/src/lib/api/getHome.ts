@@ -1,5 +1,4 @@
 import { HeroData } from "../types/sections/hero";
-import { HOME_TAG } from "./cache-tags";
 import { ApiClient } from "./client";
 import { WorkFlowData } from "../types/sections/workFlow";
 import { PartnersData } from "../types/sections/partners";
@@ -274,7 +273,7 @@ export class GetHomePages {
     const howItWorks = data.dynamic_zone.find(
       (h) => h.__component === "global.section-accordion"
     );
- 
+
     return {
       heading: howItWorks?.heading,
       sub_heading: howItWorks?.sub_heading,

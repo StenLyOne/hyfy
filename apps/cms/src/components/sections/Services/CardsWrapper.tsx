@@ -4,14 +4,23 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { lenisInstance } from "src/components/Animation/LenisProvide";
 import { CardItem } from "./Card";
 import { CardServices } from "src/lib/types/sections/services";
+import Image from "next/image";
+import clsx from "clsx";
 
 export default function CardsWrapper({ card }: { card: CardServices[] }) {
+  const [hydrated, setHydrated] = useState(false);
   const [active, setActive] = useState(0); // индекс активной карточки/таба
   const tabEls = useRef<Record<number, HTMLDivElement | null>>({}); // DOM-узлы табов слева
   const refs = useRef<Record<number, HTMLDivElement | null>>({}); // DOM-узлы карточек справа
   const [dotY, setDotY] = useState(0); // Y-смещение точки на линии
   const ticking = useRef(false); // защита от лишних кадров
   const frameRef = useRef<number | undefined>(undefined); // id requestAnimationFrame
+
+  // Флаг гидрации
+  useEffect(() => {
+    setHydrated(true);
+    setActive(0); // инициализация после монтирования
+  }, []);
 
   // позиция точки
   useLayoutEffect(() => {
@@ -56,6 +65,11 @@ export default function CardsWrapper({ card }: { card: CardServices[] }) {
     };
   }, []);
 
+  if (!hydrated || active === null) {
+    // пока не прогидрировалось — ничего не рендерим
+    return <div className="h-[400px]" />;
+  }
+
   // клик по табу
   const handleTabClick = (index: number) => {
     const lenis = lenisInstance.current;
@@ -91,20 +105,28 @@ export default function CardsWrapper({ card }: { card: CardServices[] }) {
                   onClick={() => handleTabClick(i)}
                 >
                   <span
-                    className={`md:hidden flex cursor-pointer transition-colors text-balance w-full px-2 md:px-5 py-2 rounded-full text-[16px] border border-gray-100 ${
+                    className={clsx(
+                      "md:hidden flex cursor-pointer transition-colors text-balance w-full px-2 md:px-5 py-2 rounded-full text-[16px] border border-gray-100",
                       active === i
-                        ? "text-white bg-primary font-bold shadow-[0_3px_8px_0_rgba(0,0,0,0.12),_0px_3px_1px_0_rgba(0,0,0,0.04)]"
+                        ? " bg-primary font-bold shadow-[0_3px_8px_0_rgba(0,0,0,0.12),_0px_3px_1px_0_rgba(0,0,0,0.04)]"
                         : "md:text-gray-500 bg-[#C6E8E6] font-normal"
-                    }`}
+                    )}
                   >
-                    <img className="w-6 h-6" src={c.icon?.url} alt="" />
+                    <Image
+                      className="w-6 h-6"
+                      src={c.icon?.url || "/icons/icon.svg"}
+                      alt="icon"
+                      width={6}
+                      height={6}
+                    />
                   </span>
                   <span
-                    className={`hidden md:block cursor-pointer transition-color transition-font duration-150 text-balance w-full ${
+                    className={clsx(
+                      "hidden md:block cursor-pointer transition-color transition-font duration-150 text-balance w-full",
                       active === i
-                        ? "text-white md:text-primary font-bold "
+                        ? "text-activ font-bold "
                         : "md:text-gray-600"
-                    }`}
+                    )}
                   >
                     {c.heading}
                   </span>

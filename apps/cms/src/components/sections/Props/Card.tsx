@@ -38,6 +38,7 @@ export function Card({
             alt={media.alt ?? "seo"}
             width={media.width}
             height={media.height}
+            loading="lazy"
             className="w-full  object-cover rounded-[20px] min-h-[450px] md:h-full z-0"
           />
         )}

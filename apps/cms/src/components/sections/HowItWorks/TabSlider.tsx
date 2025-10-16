@@ -31,6 +31,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                     alt={c.icon?.alt ?? "icon"}
                     width={c.icon?.width}
                     height={c.icon?.height}
+                    loading="lazy"
                   />
                 </span>{" "}
                 <h3 className="font-medium !text-[24px]">{c.heading}</h3>
@@ -49,7 +50,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
               {c.media?.url && (
                 <div
                   className={clsx(
-                    "relative w-full h-[400px] rounded-[20px] md:hidden overflow-hidden mt-5",
+                    "relative w-full h-[400px] rounded-[20px] overflow-hidden mt-5 md:hidden",
                     index === activ ? "block" : "hidden"
                   )}
                 >
@@ -57,15 +58,17 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                     key={index}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: index === activ ? 1 : 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0"
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full"
+                    style={{ height: "100%" }}
                   >
                     <Image
-                      src={c.media?.url}
-                      alt={c.media?.alt || ""}
-                      width={c.media?.width}
-                      height={c.media.height}
-                      className="absolute inset-0 object-cover h-full"
+                      src={c.media.url}
+                      alt={c.media.alt || `Slide ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      priority={index === 0} // первая картинка — приоритетная
+                      loading={index === 0 ? undefined : "lazy"} // остальные ленивые
                     />
                   </motion.div>
                 </div>
@@ -83,14 +86,15 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: index === activ ? 1 : 0 }}
                   transition={{ duration: 0.4 }}
-                  className=""
+                  className="absolute inset-0 h-full"
                 >
                   <Image
                     src={image.media?.url}
                     alt={image.media?.alt || ""}
-                    width={image.media?.width}
-                    height={image.media.height}
-                    className="object-cover absolute inset-0 h-full"
+                    fill
+                    priority={index === 0} // первая картинка — приоритетная
+                    loading={index === 0 ? undefined : "lazy"} // остальные ленивые
+                    className="object-cover"
                   />
                 </motion.div>
               )

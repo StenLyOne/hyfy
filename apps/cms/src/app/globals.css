@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #019C8A;
+  --color-primary: #019c8a;
+  --color-activ: #018072;
   --color-text: #47505f;
   --color-white: #fff;
   --color-black: #2e3542;
@@ -31,12 +32,10 @@ body {
 
 .border-gradient {
   border: 2px solid transparent;
-  background: linear-gradient(to right, #01809C, #12D7BE) border-box;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
+  background: linear-gradient(to right, #01809c, #12d7be) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
-          mask-composite: exclude;
+  mask-composite: exclude;
 }
 
 .container {
