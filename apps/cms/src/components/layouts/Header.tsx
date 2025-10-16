@@ -70,7 +70,7 @@ export function Header({
         {cta && (
           <a
             href={cta.link}
-            className="hidden md:inline-block bg-primary text-white px-5 py-2  rounded-full font-semibold hover:opacity-85 transition"
+            className="hidden md:inline-block bg-primary text-white px-6 py-3  rounded-full font-bold uppercase hover:opacity-85 transition"
           >
             {cta.label}
           </a>
