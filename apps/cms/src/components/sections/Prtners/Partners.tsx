@@ -73,7 +73,7 @@ export function Partners({ data }: { data: PartnersData }) {
                   alt={logo.alt}
                   width={logo.width}
                   height={logo.height}
-                  className="w-auto h-auto max-w-none"
+      
                 />
               ))}
           </motion.div>
