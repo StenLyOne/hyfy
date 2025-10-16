@@ -1,36 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { MediaData } from "src/lib/types/ui/media";
+
+type MediaData = {
+  video?: { url: string };
+  placeholder?: { url: string; blurDataURL?: string };
+};
 
 export function Video({ video }: { video: MediaData }) {
-  const [isReady, setIsReady] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false); // увидели блок — только тогда даём src
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+      rootMargin: "300px",
+    });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  const preview = video.placeholder?.url || "/images/preview.webp";
 
   return (
-    <div className=" w-full h-full z-100">
-      {!isReady && (
+    <div ref={ref} className="relative w-full h-full overflow-hidden">
+      {!ready && (
         <Image
-          src={video.placeholder?.url || "/images/preview.png"}
+          src={preview}
           alt="preview"
           fill
-          className="absolute inset-0 object-cover"
+          className="object-cover"
           priority
           fetchPriority="high"
+          sizes="(max-width:768px) 100vw, (max-width:1280px) 80vw, 1200px"
+          quality={68}
         />
       )}
 
       <video
-        src={video.video?.url}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-1 ${
-          isReady ? "opacity-100" : "opacity-0"
+        src={inView ? video.video?.url : undefined}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          ready ? "opacity-100" : "opacity-0"
         }`}
-        onCanPlayThrough={() => setIsReady(true)}
+        onLoadedData={() => setReady(true)} // срабатывает раньше, чем canplaythrough
         autoPlay
         muted
         playsInline
         loop
-        poster={video.placeholder?.url || "/images/preview.png"}
         preload="none"
       />
     </div>
