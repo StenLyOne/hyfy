@@ -28,7 +28,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                 <span className="w-13 min-w-13 h-13 min-h-13 bg-white md:bg-gray-50 rounded-full flex items-center justify-center">
                   <img src={c.icon?.url} alt={c.icon?.alt} />
                 </span>{" "}
-                <h4 className="font-medium">{c.heading}</h4>
+                <h3 className="font-medium !text-[24px]">{c.heading}</h3>
               </div>
               <p
                 className={clsx(

@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { RatingCircle } from "src/components/ui/RatingCircle/RatingCircle";
 import { TestimonialCard } from "src/lib/types/sections/testimonials";
 
 export function Card({ testimonial }: { testimonial: TestimonialCard }) {
-  const { avatar, name, paragraph, rating, role } = testimonial;
+  const { avatar, name, paragraph, role } = testimonial;
   return (
     <div className="space-y-6 p-4 md:p-6 h-full w-full bg-white rounded-[20px]">
       <div className="flex gap-3">
@@ -18,7 +17,7 @@ export function Card({ testimonial }: { testimonial: TestimonialCard }) {
         )}
         <div>
           {name && (
-            <h5 className="body-large font-semibold line-clamp-1">{name}</h5>
+            <p className="body-large font-semibold line-clamp-1">{name}</p>
           )}
           {role && (
             <p className="body-small text-gray-500 line-clamp-1">{role}</p>

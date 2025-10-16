@@ -21,9 +21,9 @@ export function Card({
     >
       <div className="w-full md:w-1/2 px-5 md:px-10 py-10">
         {sub_heading && (
-          <h5 className="max-[768px]:mb-1 max-[768px]:!text-[14px]">
+          <p className="max-[768px]:mb-1 max-[768px]:!text-[14px]">
             {sub_heading}
-          </h5>
+          </p>
         )}
         <div className="space-y-5  md:pt-[180px]">
           {heading && <h3 className="h3-default font-medium">{heading}</h3>}

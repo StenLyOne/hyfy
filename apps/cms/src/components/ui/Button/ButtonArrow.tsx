@@ -3,9 +3,11 @@ import clsx from "clsx";
 export function ButtonArrow({
   className,
   isActive,
+  arialLabel = "Arrow button",
 }: {
   className?: string;
   isActive?: boolean;
+  arialLabel?: string;
 }) {
   return (
     <button
@@ -13,6 +15,7 @@ export function ButtonArrow({
         "relative w-[50px] min-w-[50px] h-[50px] min-h-[50px] rounded-full flex items-center justify-center overflow-hidden cursor-pointer transition-colors",
         className
       )}
+      aria-label={arialLabel}
     >
       {/* первая стрелка (базовая) */}
       <svg

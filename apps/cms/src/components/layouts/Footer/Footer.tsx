@@ -41,9 +41,9 @@ export function Footer({
             columns.length > 0 &&
             columns.map((column, idx) => (
               <div key={idx}>
-                <h4 className="mb-6 !text-[14px] font-medium uppercase text-gray-400">
+                <p className="mb-6 !text-[14px] font-medium uppercase text-gray-600">
                   {column.heading}
-                </h4>
+                </p>
                 <ul className="space-y-3">
                   {column.nav_links?.map((l, i) => {
                     const isExternal = getLinkKind(l.link);

@@ -26,12 +26,12 @@ export function Hero({ data }: { data: HeroData }) {
           {content && (
             <div className="space-y-5">
               {content.map((c, index) => (
-                <h4
+                <p
                   key={index}
-                  className=" max-[678px]:!text-[16px] max-[678px]:!leading-[24px] text-center text-balance text-white/90 font-semibold"
+                  className=" max-[678px]:!text-[16px] !text-[24px] max-[678px]:!leading-[24px] text-center text-balance text-white/90 font-semibold"
                 >
                   {c.paragraph}
-                </h4>
+                </p>
               ))}
             </div>
           )}
