@@ -100,9 +100,9 @@ export default function CardsWrapper({ card }: { card: CardServices[] }) {
                     <img className="w-6 h-6" src={c.icon?.url} alt="" />
                   </span>
                   <span
-                    className={`hidden md:block cursor-pointer transition-colors text-balance w-full ${
+                    className={`hidden md:block cursor-pointer transition-color transition-font duration-150 text-balance w-full ${
                       active === i
-                        ? "text-white md:text-primary md:font-semibold"
+                        ? "text-white md:text-primary font-bold "
                         : "md:text-gray-600"
                     }`}
                   >

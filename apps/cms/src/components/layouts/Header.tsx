@@ -33,7 +33,7 @@ export function Header({
   }, [width]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-1001 bg-white/20 backdrop-blur-[40px] shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-1001 bg-white/40 backdrop-blur-[40px] shadow-sm">
       <div className="container !py-2 md:!py-4 mx-auto px-6 flex items-center justify-between">
         {/* LOGO */}
         <Link href="/" className="flex items-center z-2">
@@ -70,7 +70,9 @@ export function Header({
         {cta && (
           <a
             href={cta.link}
-            className="hidden md:inline-block bg-primary text-white px-6 py-3  rounded-full font-bold uppercase hover:opacity-85 transition"
+            className={`hidden md:inline-block ${
+              isTop ? "bg-white text-primary" : "bg-primary text-white"
+            }  px-6 py-3  rounded-full font-bold uppercase hover:opacity-85 transition`}
           >
             {cta.label}
           </a>
