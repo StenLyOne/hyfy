@@ -9,7 +9,7 @@ export function Button({ data }: { data: ButtonType }) {
   const external = getLinkKind(link);
 
   // базовые стили
-  const baseClasses = `group cursor-pointer w-full md:w-max inline-flex items-center gap-4 uppercase text-[20px] font-semibold  transition-opacity duration-200
+  const baseClasses = `group cursor-pointer w-full md:w-max inline-flex items-center gap-4 uppercase text-[20px] font-bold  transition-opacity duration-200
   hover:opacity-90 ${
     type === "default"
       ? "px-15 py-4.25 justify-center"

@@ -80,6 +80,7 @@ export function Header({
         <button
           className="md:hidden relative z-2 w-auto h-4 flex flex-col justify-between items-center"
           onClick={() => setOpen(!open)}
+          aria-label="Open menu of navitagion"
         >
           <span
             className={`block h-0.5 w-6 bg-gray-800 transition-transform rounded-full ${

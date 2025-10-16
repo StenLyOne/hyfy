@@ -39,14 +39,14 @@ export function Card({
       )}
       <div className="mt-4 sm:max-w-[330px]">
         {sub_heading && (
-          <p className="text-[16px] leading-5 text-gray-500 uppercase mb-1">
+          <p className="text-[16px] leading-5 text-gray-700 uppercase mb-1">
             {sub_heading}
           </p>
         )}
         {heading && (
-          <h5 className={`font-medium !text-[20px] body-large ${paragraph ? "mb-3" : "mb-0"}`}>
+          <h3 className={`font-medium !text-[20px] body-large ${paragraph ? "mb-3" : "mb-0"}`}>
             {heading}
-          </h5>
+          </h3>
         )}
         {paragraph && <p>{paragraph}</p>}
       </div>

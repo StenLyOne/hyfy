@@ -7,6 +7,7 @@ import { Footer } from "src/components/layouts/Footer/Footer";
 import { GetSiteSettings } from "src/lib/api/GetGlobal";
 import { GetHomePages } from "src/lib/api/getHome";
 import { getSeoMetadata } from "src/lib/getSeoMetadata";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,7 @@ export default async function RootLayout({
         <Header data={header} settings={settings} />
         <LenisProvider>{children}</LenisProvider>
         <Footer data={footer} global={settings} />
+        <Analytics />
       </body>
     </html>
   );

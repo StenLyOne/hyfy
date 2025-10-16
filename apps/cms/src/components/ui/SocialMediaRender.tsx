@@ -108,7 +108,7 @@ export function SocialMediaRender({ data }: { data: SocialMedia }) {
   } else if (target === "linkedin") {
     icon = linkedin;
   } else if (target === "x") {
-    icon = x; 
+    icon = x;
   } else if (target === "facebook") {
     icon = facebook;
   }
@@ -120,6 +120,7 @@ export function SocialMediaRender({ data }: { data: SocialMedia }) {
           href={link}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Open the company's profile on {${target}}`}
           className="transition-transform duration-200 hover:scale-110 hover:opacity-80"
         >
           {icon}
