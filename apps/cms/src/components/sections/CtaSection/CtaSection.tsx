@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "../../../lib/motion";
 import { useRef } from "react";
 import { AnimatedText } from "src/components/Animation/AnimatedText";
 import { Button } from "src/components/ui/Button/Button";

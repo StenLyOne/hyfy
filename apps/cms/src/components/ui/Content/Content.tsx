@@ -1,10 +1,9 @@
 import { AnimatedText } from "src/components/Animation/AnimatedText";
 import { Paragraph } from "src/lib/types/ui/content";
 import type { Button as ButtonType } from "src/lib/types/ui/button";
-import { SubTitle } from "../../Subtitle/SubTitle";
-import { Button } from "../Button";
+import { SubTitle } from "../Subtitle/SubTitle";
+import { Button } from "../Button/Button";
 import type { CSSProperties } from "react";
-import { MotionValue } from "framer-motion";
 
 type Props = {
   heading?: string;
@@ -14,7 +13,7 @@ type Props = {
   classContainer?: string;
   classP?: string;
   classH?: string;
-  style?: CSSProperties | Record<string, string | number | MotionValue>;
+  style?: CSSProperties 
 };
 
 export function Content({
@@ -27,8 +26,6 @@ export function Content({
   classH,
   style,
 }: Props) {
-  const contentAvailable = heading?.length;
-  console.log(`${heading}: ${contentAvailable}`);
   return (
     <AnimatedText className={` ${classContainer}`} style={style}>
       {sub_heading && <SubTitle label={sub_heading} />}

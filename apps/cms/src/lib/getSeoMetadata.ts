@@ -14,7 +14,7 @@ export function getSeoMetadata(seo?: Seo): Metadata {
     structured_data,
   } = seo;
 
-  console.log("SEO Metadata:", seo);
+
 
   return {
     title: meta_title,

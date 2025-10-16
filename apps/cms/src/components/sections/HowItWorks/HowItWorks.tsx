@@ -1,6 +1,6 @@
 import { HowItWorksData } from "src/lib/types/sections/howItWorks";
 import { TabSlider } from "./TabSlider";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 
 export function HowItWorks({ data }: { data: HowItWorksData }) {
   const { card, heading, content, cta, sub_heading } = data;

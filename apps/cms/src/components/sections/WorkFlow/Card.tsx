@@ -18,8 +18,8 @@ export function Card({
           <Image
             src={media.url}
             alt={media.alt ?? ""}
-            width={330}
-            height={380}
+            width={media.width}
+            height={media.height}
             className="z-1 relative group-hover:scale-110 transform-scale duration-500  "
           ></Image>
           {/* SHAPES */}

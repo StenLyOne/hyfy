@@ -1,6 +1,6 @@
 import { ServicesData } from "src/lib/types/sections/services";
 import CardsWrapper from "./CardsWrapper";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 
 export function Services({ data }: { data: ServicesData }) {
   const { card, heading, sub_heading, content, cta } = data;

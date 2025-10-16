@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { useInView } from "framer-motion";
+import { useInView } from "../../../lib/motion";
 import { ButtonArrow } from "src/components/ui/Button/ButtonArrow";
 import { CardLink } from "src/lib/types/sections/solutions";
 import clsx from "clsx";
@@ -90,8 +90,8 @@ export function Card({ card }: { card: CardLink }) {
               <Image
                 alt={media?.alt || "Media Image"}
                 src={media?.url}
-                width={500}
-                height={500}
+                width={media.width}
+                height={media.height}
                 className="h-auto max-h-[160px] md:max-h-[240px] object-contain"
               />
             </div>

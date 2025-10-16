@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "../../lib/motion";
 import { useScreenSize } from "src/hooks/useScreenSize";
 import { HeaderData } from "src/lib/types/sections/header";
 import { SocialMediaRender } from "../ui/SocialMediaRender";
@@ -72,7 +72,7 @@ export function Header({
             href={cta.link}
             className={`hidden md:inline-block ${
               isTop ? "bg-white text-primary" : "bg-primary text-white"
-            }  px-6 py-3  rounded-full font-bold uppercase hover:opacity-85 transition`}
+            }  px-6 py-3 text-[20px] rounded-full font-bold uppercase hover:opacity-85 transition`}
           >
             {cta.label}
           </a>

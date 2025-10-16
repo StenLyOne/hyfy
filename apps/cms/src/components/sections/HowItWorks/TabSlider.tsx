@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { motion } from "framer-motion";
+import { motion } from "../../../lib/motion";
 import Image from "next/image";
 import { useState } from "react";
 import { howItWorksCard } from "src/lib/types/sections/howItWorks";
@@ -26,7 +26,12 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
             >
               <div className="flex items-center gap-5">
                 <span className="w-13 min-w-13 h-13 min-h-13 bg-white md:bg-gray-50 rounded-full flex items-center justify-center">
-                  <img src={c.icon?.url} alt={c.icon?.alt} />
+                  <Image
+                    src={c.icon?.url ?? "/icons/icon.svg"}
+                    alt={c.icon?.alt ?? "icon"}
+                    width={c.icon?.width}
+                    height={c.icon?.height}
+                  />
                 </span>{" "}
                 <h3 className="font-medium !text-[24px]">{c.heading}</h3>
               </div>
@@ -58,8 +63,9 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                     <Image
                       src={c.media?.url}
                       alt={c.media?.alt || ""}
-                      fill
-                      className="object-cover"
+                      width={c.media?.width}
+                      height={c.media.height}
+                      className="absolute inset-0 object-cover h-full"
                     />
                   </motion.div>
                 </div>
@@ -77,13 +83,14 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: index === activ ? 1 : 0 }}
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0"
+                  className=""
                 >
                   <Image
                     src={image.media?.url}
                     alt={image.media?.alt || ""}
-                    fill
-                    className="object-cover"
+                    width={image.media?.width}
+                    height={image.media.height}
+                    className="object-cover absolute inset-0 h-full"
                   />
                 </motion.div>
               )

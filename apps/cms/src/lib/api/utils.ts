@@ -22,4 +22,14 @@ export const assetsUrl = (raw?: string | null): string | null => {
 export const normalizeImage = (m?: {
   url?: string | null;
   alt?: string | null;
-}) => (assetsUrl(m?.url) ? { url: assetsUrl(m?.url)!, alt: m?.alt ?? "" } : undefined);
+  width?: number | null;
+  height?: number | null;
+}) =>
+  assetsUrl(m?.url)
+    ? {
+        url: assetsUrl(m?.url)!,
+        alt: m?.alt ?? "",
+        width: m?.width ?? 0,
+        height: m?.height ?? 0,
+      }
+    : undefined;

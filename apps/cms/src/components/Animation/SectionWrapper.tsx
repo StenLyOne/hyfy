@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "../../lib/motion";
+import { useRef } from "react";
 import { useScreenSize } from "src/hooks/useScreenSize";
 
 export function SectionWrapper({ children }: { children: React.ReactNode }) {

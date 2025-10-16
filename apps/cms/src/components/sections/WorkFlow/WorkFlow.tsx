@@ -3,7 +3,7 @@ import { SubTitle } from "src/components/ui/Subtitle/SubTitle";
 import { WorkFlowData } from "src/lib/types/sections/workFlow";
 import { Card } from "./Card";
 import { AnimatedText } from "src/components/Animation/AnimatedText";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 
 const shapePositions = [
   {

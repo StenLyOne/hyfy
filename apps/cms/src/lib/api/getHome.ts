@@ -236,7 +236,10 @@ export class GetHomePages {
           heading: c.heading,
           paragraph: c.paragraph,
           sub_heading: c.sub_heading,
-          media: c.media?.url ? normalizeImage(c.media) : undefined,
+          media:
+            c.media?.url && c.media?.width && c.media?.height
+              ? normalizeImage(c.media)
+              : undefined,
         })) ?? [],
     };
   }
@@ -271,7 +274,7 @@ export class GetHomePages {
     const howItWorks = data.dynamic_zone.find(
       (h) => h.__component === "global.section-accordion"
     );
-
+ 
     return {
       heading: howItWorks?.heading,
       sub_heading: howItWorks?.sub_heading,

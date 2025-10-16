@@ -18,7 +18,7 @@ export function Card({
     <div
       className="sticky top-12 md:top-25 flex flex-col md:flex-row justify-end w-full h-auto lg:h-[580px] rounded-[20px]"
       style={{ backgroundColor: color }}
-    >   
+    >
       <div className="w-full md:w-1/2 px-5 md:px-10 py-10">
         {sub_heading && (
           <p className="max-[768px]:mb-1 max-[768px]:!text-[14px]">
@@ -36,8 +36,8 @@ export function Card({
           <Image
             src={media.url}
             alt={media.alt ?? "seo"}
-            width={676}
-            height={582}
+            width={media.width}
+            height={media.height}
             className="w-full  object-cover rounded-[20px] min-h-[450px] md:h-full z-0"
           />
         )}

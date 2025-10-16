@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { MediaData } from "src/lib/types/ui/media";
 
-
 export function Video({ video }: { video: MediaData }) {
   const [isReady, setIsReady] = useState(false);
 
@@ -14,7 +13,8 @@ export function Video({ video }: { video: MediaData }) {
         <Image
           src={video.placeholder?.url || "/images/preview.png"}
           alt=""
-          fill
+          width={video.placeholder?.width}
+          height={video.placeholder?.height}
           className="absolute inset-0 object-cover"
           priority
         />

@@ -23,7 +23,8 @@ export function CardItem({ card }: { card: CardServices }) {
         <Image
           src={media?.url}
           alt={media.alt}
-          fill
+          width={media.width}
+          height={media.height}
           className="z-1 absolute inset-0 w-full h-full object-cover"
         ></Image>
       )}

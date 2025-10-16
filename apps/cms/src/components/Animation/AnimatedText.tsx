@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, MotionValue } from "framer-motion";
+import { motion } from "../../lib/motion";
 import { container, item } from "./variants";
 import type { CSSProperties } from "react";
 
@@ -11,7 +11,7 @@ export function AnimatedText({
 }: {
   children: React.ReactNode;
   className?: string;
-  style?: CSSProperties | Record<string, string | number | MotionValue>;
+  style?: CSSProperties;
 }) {
   return (
     <motion.div

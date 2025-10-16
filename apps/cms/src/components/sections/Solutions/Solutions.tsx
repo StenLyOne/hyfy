@@ -1,6 +1,6 @@
 import { SolutionsData } from "src/lib/types/sections/solutions";
 import { Card } from "./Card";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 
 export function Solutions({ data }: { data: SolutionsData }) {
   const { card, cta, content, heading, sub_heading } = data;

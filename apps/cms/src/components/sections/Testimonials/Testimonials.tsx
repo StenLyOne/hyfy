@@ -1,6 +1,6 @@
 import { TestimonialsData } from "src/lib/types/sections/testimonials";
 import { CardsWrapper } from "./CardsWrapper";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 
 export function Testimonials({ data }: { data: TestimonialsData }) {
   const { testimonials, cta, sub_heading, heading, content } = data;

@@ -1,6 +1,6 @@
 import { PropsData } from "src/lib/types/sections/props";
 import { Card } from "./Card";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 
 export function Props({ data }: { data: PropsData }) {
   const { card, sub_heading, content, heading, cta } = data;

@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "../../../lib/motion";
 import { useRef, useLayoutEffect, useState, useEffect } from "react";
-import { Content } from "src/components/ui/Button/Content/Content";
+import { Content } from "src/components/ui/Content/Content";
 import { PartnersData } from "src/lib/types/sections/partners";
 
 export function Partners({ data }: { data: PartnersData }) {
