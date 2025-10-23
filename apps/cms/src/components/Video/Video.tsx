@@ -40,7 +40,7 @@ export function Video({ video }: { video: MediaData }) {
       )}
 
       <video
-        src={inView ? video.video?.url : undefined}
+        src={inView ? video.video?.url : video.video?.url}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           ready ? "opacity-100" : "opacity-0"
         }`}
