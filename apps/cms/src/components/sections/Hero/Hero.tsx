@@ -46,11 +46,10 @@ export function Hero({ data }: { data: HeroData }) {
         </AnimatedText>
       </div>
 
-      {media?.video && (
-        // <div className="absolute inset-0 z-0  ">
-        <Video video={media} />
-        // </div>
-      )}
+      <div className="absolute inset-0 z-0  ">
+        {media?.video && <Video video={media} />}
+      </div>
+
       <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60"></div>
     </main>
   );

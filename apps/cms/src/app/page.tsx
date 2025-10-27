@@ -11,6 +11,7 @@ import { HeroPlug } from "src/components/sections/Hero/HeroPlug";
 import { SectionWrapper } from "src/components/Animation/SectionWrapper";
 import { GetHomePages } from "src/lib/api/getHome";
 import { draftMode } from "next/headers";
+import { Gallery } from "src/components/sections/Gallery/Gallery";
 
 export default async function Home() {
   const { isEnabled: isDraftMode } = await draftMode();
@@ -37,6 +38,7 @@ export default async function Home() {
       <Props data={props} />
       <Services data={services} />
       <HowItWorks data={howItWorks} />
+      <Gallery />
       <Testimonials data={testimonials} />
       <Solutions data={solutions} />
       <CtaSection data={cta} />

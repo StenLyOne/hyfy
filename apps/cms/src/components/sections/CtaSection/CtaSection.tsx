@@ -39,10 +39,7 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
   const opacity = useTransform(scrollYProgress, [0.4, 0.7], ["0%", "100%"]);
 
   return (
-    <section
-      ref={refContainer}
-      className="relative w-full h-[350vh] bg-white" 
-    >
+    <section ref={refContainer} className="relative w-full h-[350vh] bg-white">
       <div className="sticky top-0 h-screen flex items-center justify-center">
         <motion.div
           className="relative rounded-[20px] overflow-hidden"
@@ -53,9 +50,7 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
             borderRadius: radius,
           }}
         >
- 
-
-          <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60"></div>
+          <div className="absolute inset-0 z-11 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60"></div>
 
           <AnimatedText className="max-w-[750px] mx-auto text-center space-y-6 flex flex-col items-center justify-center h-full relative z-100">
             {sub_heading && (
@@ -92,7 +87,9 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
               </motion.div>
             )}
           </AnimatedText>
-                   {video?.video && <Video video={video} />}
+          <div className="absolute inset-0">
+            {video?.video && <Video video={video} />}
+          </div>
         </motion.div>
       </div>
     </section>
