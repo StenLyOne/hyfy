@@ -4,40 +4,45 @@ import { container, item } from "src/components/Animation/variants";
 import { motion } from "../../../lib/motion";
 
 import Image from "next/image";
+import { GalleryData } from "src/lib/types/sections/gallery";
 
-const IMAGES = [
+const POSITION = [
   {
-    src: "/gallery/1.png",
     cols: "col-span-2 md:col-span-1",
     rows: "row-span-3 md:row-span-1",
   },
   {
-    src: "/gallery/2.png",
     cols: "col-span-2",
     rows: "row-span-4 md:row-span-2",
   },
   { src: "/gallery/3.png", cols: "col-span-1", rows: "row-span-3" },
   {
-    src: "/gallery/4.png",
     cols: "col-span-1",
     rows: "row-span-5 md:row-span-1",
   },
-  { src: "/gallery/5.png", cols: "col-span-1", rows: "row-span-2" },
+  { cols: "col-span-1", rows: "row-span-2" },
   {
-    src: "/gallery/6.png",
     cols: "col-span-2 md:col-span-1",
     rows: "row-span-2 md:row-span-1",
   },
-  { src: "/gallery/7.png", cols: "col-span-1", rows: "row-span-1" },
-  { src: "/gallery/8.png", cols: "col-span-1", rows: "row-span-1" },
+  { cols: "col-span-1", rows: "row-span-1" },
+  { cols: "col-span-1", rows: "row-span-1" },
   {
-    src: "/gallery/9.png",
     cols: "col-span-2 md:col-span-1",
     rows: "row-span-1",
   },
 ];
 
-export function Gallery() {
+export function Gallery({ data }: { data: GalleryData }) {
+  const media = data?.media.slice(0, 9) ?? [];
+
+  if (!media.length) return null;
+
+  const images = media.map((ele, index) => {
+    const pos = POSITION[index];
+    return { src: ele.url, ...pos };
+  });
+
   return (
     <section className="bg-white relative px-4 md:px-10 py-[100px] md:py-[140px]">
       <motion.div
@@ -47,7 +52,7 @@ export function Gallery() {
         viewport={{ once: true, margin: "-50px" }}
         className="grid grid-cols-2 md:grid-cols-5 grid-rows-7 md:grid-rows-3 gap-4 w-full  min-h-[900px] "
       >
-        {IMAGES.map((img, i) => (
+        {images.map((img, i) => (
           <motion.div
             key={i}
             variants={item}

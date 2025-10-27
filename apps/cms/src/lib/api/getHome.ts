@@ -11,6 +11,7 @@ import { CtaSectionData } from "../types/sections/ctaSection";
 import { assetsUrl, normalizeCTA, normalizeImage } from "./utils";
 import { Media } from "../types/ui/media";
 import { Seo } from "../types/setting/seo";
+import { GalleryData } from "../types/sections/gallery";
 
 export interface PageAttrs {
   id: number;
@@ -62,6 +63,10 @@ export interface CtaSectionRaw extends CtaSectionData {
   __component: "global.section-cta";
 }
 
+export interface GalleryRaw extends GalleryData {
+  __component: "global.section-gallery";
+}
+
 export type DynamicZone =
   | HeroRaw
   | WorkflowRaw
@@ -71,7 +76,8 @@ export type DynamicZone =
   | HowItWorksRaw
   | TestimonialRaw
   | SolutionsRaw
-  | CtaSectionRaw;
+  | CtaSectionRaw
+  | GalleryRaw;
 
 export class GetHomePages {
   private client = new ApiClient();
@@ -93,14 +99,15 @@ export class GetHomePages {
 
   async fetch() {
     const POPULATE_BY_UID: Record<string, string[]> = {
-      "cms.section-hero": ["media", "cta", "content"],
+      "cms.section-hero": ["media_pc", "media_mobile", "cta", "content"],
       "cms.section-workflow": ["content", "cta", "card"],
       "global.section-partners": ["cta", "logo", "content"],
       "global.section-props": ["content", "cta", "card"],
       "global.section-accordion": ["card", "content", "cta"],
       "global.section-testimonial": ["cta", "content", "testimonials"],
       "global.section-links": ["cta", "content", "card"],
-      "global.section-cta": ["content", "cta", "video"],
+      "global.section-cta": ["content", "cta", "video_pc", "video_mobile"],
+      "global.section-gallery": ["media"],
     };
 
     const buildPopulateParams = (map: Record<string, string[]>) =>
@@ -155,13 +162,23 @@ export class GetHomePages {
           paragraph: c.paragraph,
         })) ?? [],
       cta: hero.cta ? normalizeCTA(hero.cta) : undefined,
-      media: hero.media
+      media_mobile: hero.media_mobile
         ? {
-            placeholder: hero.media.placeholder
-              ? normalizeImage(hero.media.placeholder)
+            placeholder: hero.media_mobile.placeholder
+              ? normalizeImage(hero.media_mobile.placeholder)
               : undefined,
-            video: hero.media.video
-              ? normalizeImage(hero.media.video)
+            video: hero.media_mobile.video
+              ? normalizeImage(hero.media_mobile.video)
+              : undefined,
+          }
+        : undefined,
+      media_pc: hero.media_pc
+        ? {
+            placeholder: hero.media_pc.placeholder
+              ? normalizeImage(hero.media_pc.placeholder)
+              : undefined,
+            video: hero.media_pc.video
+              ? normalizeImage(hero.media_pc.video)
               : undefined,
           }
         : undefined,
@@ -316,6 +333,20 @@ export class GetHomePages {
     };
   }
 
+  async getGallery(): Promise<GalleryData> {
+    const data = await this.fetch();
+    const gallery = data.dynamic_zone.find(
+      (e) => e.__component === "global.section-gallery"
+    );
+
+    return {
+      media:
+        gallery?.media
+          .map((e) => normalizeImage(e))
+          .filter((img): img is Media => Boolean(img)) ?? [],
+    };
+  }
+
   async getSolutions(): Promise<SolutionsData> {
     const data = await this.fetch();
     const solutions = data.dynamic_zone.find(
@@ -354,13 +385,23 @@ export class GetHomePages {
         cta?.content?.map((c) => ({
           paragraph: c.paragraph,
         })) ?? [],
-      video: cta?.video
+      video_pc: cta?.video_pc
         ? {
-            placeholder: cta.video.placeholder?.url
-              ? normalizeImage(cta.video.placeholder)
+            placeholder: cta.video_pc.placeholder?.url
+              ? normalizeImage(cta.video_pc.placeholder)
               : undefined,
-            video: cta.video.video?.url
-              ? normalizeImage(cta.video.video)
+            video: cta.video_pc.video?.url
+              ? normalizeImage(cta.video_pc.video)
+              : undefined,
+          }
+        : undefined,
+      video_mobile: cta?.video_mobile
+        ? {
+            placeholder: cta.video_mobile.placeholder?.url
+              ? normalizeImage(cta.video_mobile.placeholder)
+              : undefined,
+            video: cta.video_mobile.video?.url
+              ? normalizeImage(cta.video_mobile.video)
               : undefined,
           }
         : undefined,

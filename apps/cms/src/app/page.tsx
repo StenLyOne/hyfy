@@ -26,6 +26,7 @@ export default async function Home() {
   const testimonials = await api.getTestimonials();
   const solutions = await api.getSolutions();
   const cta = await api.getCta();
+  const gallery = await api.getGallery();
 
   return (
     <>
@@ -38,7 +39,7 @@ export default async function Home() {
       <Props data={props} />
       <Services data={services} />
       <HowItWorks data={howItWorks} />
-      <Gallery />
+      <Gallery data={gallery} />
       <Testimonials data={testimonials} />
       <Solutions data={solutions} />
       <CtaSection data={cta} />

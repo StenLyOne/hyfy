@@ -20,7 +20,14 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "*.strapiapp.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "*.strapiapp.com" },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "1337",
+      },
+    ],
     minimumCacheTTL: 31536000,
     formats: ["image/avif", "image/webp"],
   },

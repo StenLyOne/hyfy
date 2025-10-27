@@ -3,10 +3,13 @@
 import { AnimatedText } from "src/components/Animation/AnimatedText";
 import { Button } from "src/components/ui/Button/Button";
 import { Video } from "src/components/Video/Video";
+import { useScreenSize } from "src/hooks/useScreenSize";
 import { HeroData } from "src/lib/types/sections/hero";
 
 export function Hero({ data }: { data: HeroData }) {
-  const { cta, sub_heading, content, heading, media } = data;
+  const { cta, sub_heading, content, heading, media_mobile, media_pc } = data;
+  console.log(` MAXXXXX ${media_mobile}`);
+  const isMobile = useScreenSize().width < 768;
 
   return (
     <main id="hero" className="fixed inset-0 px-4 z-0">
@@ -47,7 +50,9 @@ export function Hero({ data }: { data: HeroData }) {
       </div>
 
       <div className="absolute inset-0 z-0  ">
-        {media?.video && <Video video={media} />}
+        {media_mobile?.video && media_pc?.video && (
+          <Video video={isMobile ? media_mobile : media_pc} />
+        )}
       </div>
 
       <div className="absolute inset-0 z-1 bg-gradient-to-b from-[#184242]/60 to-[#184242]/60"></div>

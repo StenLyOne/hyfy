@@ -7,5 +7,7 @@ export interface HeroData {
   sub_heading?: string;
   content?: Paragraph[];
   cta?: Button[];
-  media?: MediaData ;
+  media_pc?: MediaData;
+  media_mobile?: MediaData;
 }
+

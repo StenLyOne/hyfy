@@ -7,5 +7,6 @@ export interface CtaSectionData {
   sub_heading?: string;
   content?: Paragraph[];
   cta?: Button[];
-  video?: MediaData;
+  video_pc?: MediaData;
+  video_mobile?: MediaData;
 }

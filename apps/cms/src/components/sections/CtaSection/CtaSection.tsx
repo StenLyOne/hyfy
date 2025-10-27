@@ -10,7 +10,7 @@ import { useScreenSize } from "src/hooks/useScreenSize";
 import { CtaSectionData } from "src/lib/types/sections/ctaSection";
 
 export function CtaSection({ data }: { data: CtaSectionData }) {
-  const { content, cta, heading, sub_heading, video } = data;
+  const { content, cta, heading, sub_heading, video_mobile, video_pc } = data;
   const { width } = useScreenSize();
 
   const refContainer = useRef(null);
@@ -88,7 +88,9 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
             )}
           </AnimatedText>
           <div className="absolute inset-0">
-            {video?.video && <Video video={video} />}
+            {video_pc?.video && video_mobile?.video && (
+              <Video video={width < 768 ? video_mobile : video_pc} />
+            )}
           </div>
         </motion.div>
       </div>
