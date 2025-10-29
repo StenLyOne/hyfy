@@ -6,9 +6,9 @@ import { Video } from "src/components/Video/Video";
 import { useScreenSize } from "src/hooks/useScreenSize";
 import { HeroData } from "src/lib/types/sections/hero";
 
-export function Hero({ data }: { data: HeroData }) {
+export function Hero({ data, isDraft }: { data: HeroData; isDraft: boolean }) {
   const { cta, sub_heading, content, heading, media_mobile, media_pc } = data;
-  console.log(` MAXXXXX ${media_mobile}`);
+  console.log("Draft mode from browser:", isDraft);
   const isMobile = useScreenSize().width < 768;
 
   return (

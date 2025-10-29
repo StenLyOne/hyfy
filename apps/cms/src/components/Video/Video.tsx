@@ -31,9 +31,8 @@ export function Video({ video }: { video: MediaData }) {
     if (mounted && inView && !shouldLoad) setShouldLoad(true);
   }, [mounted, inView, shouldLoad]);
 
-  console.log(`shouldLoad: ${shouldLoad}`);
-  console.log(`inView: ${inView}`);
-  const preview = video.placeholder?.url || "/images/preview.webp";
+
+  const preview = video.placeholder?.url || "/images/preview.png";
 
   return (
     <div ref={ref} className="relative w-full h-full overflow-hidden">

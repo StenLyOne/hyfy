@@ -8,12 +8,12 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   reactStrictMode: false,
 
-  compiler: {
-    removeConsole:
-      process.env.NODE_ENV === "production"
-        ? { exclude: ["error", "warn"] }
-        : false,
-  },
+    // compiler: {
+    //   removeConsole:
+    //     process.env.NODE_ENV === "production"
+    //       ? { exclude: ["error", "warn"] }
+    //       : false,
+    // },
 
   experimental: {
     optimizePackageImports: ["framer-motion"],
@@ -33,15 +33,24 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    const isProd = process.env.NODE_ENV === "production";
+
     return [
       {
         source: "/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
+        headers: isProd
+          ? [
+              {
+                key: "Cache-Control",
+                value: "public, max-age=31536000, immutable",
+              },
+            ]
+          : [
+              {
+                key: "Cache-Control",
+                value: "no-store",
+              },
+            ],
       },
     ];
   },

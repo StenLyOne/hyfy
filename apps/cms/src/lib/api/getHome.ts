@@ -8,7 +8,12 @@ import { HowItWorksData } from "../types/sections/howItWorks";
 import { TestimonialsData } from "../types/sections/testimonials";
 import { SolutionsData } from "../types/sections/solutions";
 import { CtaSectionData } from "../types/sections/ctaSection";
-import { assetsUrl, normalizeCTA, normalizeImage } from "./utils";
+import {
+  assetsUrl,
+  normalizeCTA,
+  normalizeImage,
+  normalizeVideo,
+} from "./utils";
 import { Media } from "../types/ui/media";
 import { Seo } from "../types/setting/seo";
 import { GalleryData } from "../types/sections/gallery";
@@ -90,6 +95,7 @@ export class GetHomePages {
   normalizeCTA = normalizeCTA;
   assetsUrl = assetsUrl;
   normalizeImage = normalizeImage;
+  normalizeVideo = normalizeVideo;
 
   constructor(siteSlug: string, pageSlug: string, preview: boolean = false) {
     this.siteSlug = siteSlug;
@@ -168,7 +174,7 @@ export class GetHomePages {
               ? normalizeImage(hero.media_mobile.placeholder)
               : undefined,
             video: hero.media_mobile.video
-              ? normalizeImage(hero.media_mobile.video)
+              ? await normalizeVideo(hero.media_mobile.video)
               : undefined,
           }
         : undefined,
@@ -178,7 +184,7 @@ export class GetHomePages {
               ? normalizeImage(hero.media_pc.placeholder)
               : undefined,
             video: hero.media_pc.video
-              ? normalizeImage(hero.media_pc.video)
+              ?  await normalizeVideo(hero.media_pc.video)
               : undefined,
           }
         : undefined,
@@ -391,7 +397,7 @@ export class GetHomePages {
               ? normalizeImage(cta.video_pc.placeholder)
               : undefined,
             video: cta.video_pc.video?.url
-              ? normalizeImage(cta.video_pc.video)
+              ?  await normalizeVideo(cta.video_pc.video)
               : undefined,
           }
         : undefined,
@@ -401,7 +407,7 @@ export class GetHomePages {
               ? normalizeImage(cta.video_mobile.placeholder)
               : undefined,
             video: cta.video_mobile.video?.url
-              ? normalizeImage(cta.video_mobile.video)
+              ?  await normalizeVideo(cta.video_mobile.video)
               : undefined,
           }
         : undefined,
