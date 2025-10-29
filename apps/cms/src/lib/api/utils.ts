@@ -64,8 +64,6 @@ const blobCache = new Map<
   { url: string; checkedAt: number; exists: boolean }
 >();
 
-const CACHE_TTL = 10 * 60 * 1000; // 10 минут
-
 export async function ensureBlobUrl(
   strapiUrl?: string
 ): Promise<string | undefined> {
@@ -83,15 +81,12 @@ export async function ensureBlobUrl(
 
   // --- Клиент ---
   // 🚧 Предохранитель: если уже Blob URL — просто вернуть -
-  if (strapiUrl.includes("vercel-storage.com")) return strapiUrl;
-
-  // 🚧 Проверка кеша
-  const cached = blobCache.get(strapiUrl);
-  const now = Date.now();
-
-  if (cached && now - cached.checkedAt < CACHE_TTL && cached.exists) {
-    return cached.url;
+  if (strapiUrl.includes("vercel-storage.com")) {
+    console.log(`🚧 Blob URL : ${strapiUrl}`);
+    return strapiUrl;
   }
+
+  const now = Date.now();
 
   // Проверяем, есть ли файл в Blob
   const head = await fetch(blobUrl, { method: "HEAD" }).catch(() => null);
