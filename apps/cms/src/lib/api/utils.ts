@@ -44,19 +44,13 @@ export async function normalizeVideo(m?: {
   width?: number | null;
   height?: number | null;
 }) {
-  if (typeof window === "undefined") {
-    const url = assetsUrl(m?.url);
-    return {
-      url: url!,
-      alt: m?.alt ?? "",
-      width: m?.width ?? 0,
-      height: m?.height ?? 0,
-    };
-  }
   if (!m?.url) return undefined;
+
   const normalizeUrl = assetsUrl(m.url);
 
+  // ⚙️ Просто вызываем ensureBlobUrl (оно само решает — SSR это или client)
   const blobUrl = (await ensureBlobUrl(normalizeUrl ?? undefined)) || m.url;
+
   return {
     url: blobUrl!,
     alt: m.alt ?? "",
@@ -80,27 +74,26 @@ export async function ensureBlobUrl(
   const fileName = strapiUrl.split("/").pop();
   const blobUrl = `${process.env.BLOB_READ_URL}${fileName}`;
 
-  // --- SSR ---
+  // --- SSR / BUILD ---
   if (typeof window === "undefined") {
-    const head = await fetch(blobUrl, { method: "HEAD" }).catch(() => null);
-    if (head?.ok) return blobUrl;
-    console.warn("⚠️ Skip upload during SSR:", fileName);
+    // 🚫 никаких fetch — билд-окружение может быть без сети
+    console.warn("⚠️ Skip upload during SSR/build:", fileName);
     return blobUrl;
   }
 
-  // --- Предохранитель ---
+  // --- Клиент ---
+  // 🚧 Предохранитель: если уже Blob URL — просто вернуть
   if (strapiUrl.includes("vercel-storage.com")) return strapiUrl;
 
-  // --- Проверка кэша ---
+  // 🚧 Проверка кеша
   const cached = blobCache.get(strapiUrl);
   const now = Date.now();
 
-  // если в кеше есть и не устарело → просто вернуть
   if (cached && now - cached.checkedAt < CACHE_TTL && cached.exists) {
     return cached.url;
   }
 
-  // иначе — перепроверим HEAD (существует ли файл)
+  // Проверяем, есть ли файл в Blob
   const head = await fetch(blobUrl, { method: "HEAD" }).catch(() => null);
   const exists = !!head?.ok;
 
