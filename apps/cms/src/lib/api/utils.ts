@@ -44,8 +44,18 @@ export async function normalizeVideo(m?: {
   width?: number | null;
   height?: number | null;
 }) {
+  if (typeof window === "undefined") {
+    const url = assetsUrl(m?.url);
+    return {
+      url: url!,
+      alt: m?.alt ?? "",
+      width: m?.width ?? 0,
+      height: m?.height ?? 0,
+    };
+  }
   if (!m?.url) return undefined;
   const normalizeUrl = assetsUrl(m.url);
+
   const blobUrl = (await ensureBlobUrl(normalizeUrl ?? undefined)) || m.url;
   return {
     url: blobUrl!,
