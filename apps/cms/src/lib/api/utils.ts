@@ -69,12 +69,15 @@ export async function ensureBlobUrl(
 ): Promise<string | undefined> {
   if (!strapiUrl) return undefined;
 
+  let index = 0;
+
   const fileName = strapiUrl.split("/").pop();
   const blobUrl = `${process.env.BLOB_READ_URL}${fileName}`;
 
   // --- SSR / BUILD ---
-  if (typeof window === "undefined") {
+  if (typeof window === "undefined" && index < 4) {
     // 🚫 никаких fetch — билд-окружение может быть без сети
+    index = index + 1;
     console.warn("⚠️ Skip upload during SSR/build:", fileName);
     return blobUrl;
   }
