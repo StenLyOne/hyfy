@@ -202,11 +202,7 @@ export function Video({
         className={`absolute inset-0 w-full h-full object-cover  ${
           ready ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
-        poster={preview}
-        onLoadedData={() => {
-          // Даем браузеру зафиксировать LCP по постеру
-          setTimeout(() => setReady(true), 300);
-        }}
+        onLoadedData={() => setReady(true)}
         autoPlay
         muted
         playsInline
