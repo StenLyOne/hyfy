@@ -105,14 +105,14 @@ export class GetHomePages {
 
   async fetch() {
     const POPULATE_BY_UID: Record<string, string[]> = {
-      "cms.section-hero": ["media_pc", "media_mobile", "cta", "content"],
+      "cms.section-hero": ["cta", "content"],
       "cms.section-workflow": ["content", "cta", "card"],
       "global.section-partners": ["cta", "logo", "content"],
       "global.section-props": ["content", "cta", "card"],
       "global.section-accordion": ["card", "content", "cta"],
       "global.section-testimonial": ["cta", "content", "testimonials"],
       "global.section-links": ["cta", "content", "card"],
-      "global.section-cta": ["content", "cta", "video_pc", "video_mobile"],
+      "global.section-cta": ["content", "cta"],
       "global.section-gallery": ["media"],
     };
 
@@ -168,26 +168,30 @@ export class GetHomePages {
           paragraph: c.paragraph,
         })) ?? [],
       cta: hero.cta ? normalizeCTA(hero.cta) : undefined,
-      media_mobile: hero.media_mobile
-        ? {
-            placeholder: hero.media_mobile.placeholder
-              ? normalizeImage(hero.media_mobile.placeholder)
-              : undefined,
-            video: hero.media_mobile.video
-              ? await normalizeVideo(hero.media_mobile.video)
-              : undefined,
-          }
-        : undefined,
-      media_pc: hero.media_pc
-        ? {
-            placeholder: hero.media_pc.placeholder
-              ? normalizeImage(hero.media_pc.placeholder)
-              : undefined,
-            video: hero.media_pc.video
-              ?  await normalizeVideo(hero.media_pc.video)
-              : undefined,
-          }
-        : undefined,
+      media_mobile: {
+        placeholder: {
+          url: "/video/hero-mobile-preview.png",
+          width: 1080,
+          height: 1920,
+        },
+        video: {
+          url: "/video/mobile-hero.mp4",
+          width: 1080,
+          height: 1920,
+        },
+      },
+      media_pc: {
+        placeholder: {
+          url: "/video/hero-pc-preview.png",
+          width: 1080,
+          height: 1920,
+        },
+        video: {
+          url: "/video/pc-hero.mp4",
+          width: 1080,
+          height: 1920,
+        },
+      },
     };
   }
 
@@ -391,26 +395,30 @@ export class GetHomePages {
         cta?.content?.map((c) => ({
           paragraph: c.paragraph,
         })) ?? [],
-      video_pc: cta?.video_pc
-        ? {
-            placeholder: cta.video_pc.placeholder?.url
-              ? normalizeImage(cta.video_pc.placeholder)
-              : undefined,
-            video: cta.video_pc.video?.url
-              ?  await normalizeVideo(cta.video_pc.video)
-              : undefined,
-          }
-        : undefined,
-      video_mobile: cta?.video_mobile
-        ? {
-            placeholder: cta.video_mobile.placeholder?.url
-              ? normalizeImage(cta.video_mobile.placeholder)
-              : undefined,
-            video: cta.video_mobile.video?.url
-              ?  await normalizeVideo(cta.video_mobile.video)
-              : undefined,
-          }
-        : undefined,
+      video_pc: {
+        placeholder: {
+          url: "/video/cta-pc-preview.png",
+          width: 1080,
+          height: 1920,
+        },
+        video: {
+          url: "/video/pc-cta.mp4",
+          width: 1080,
+          height: 1920,
+        },
+      },
+      video_mobile: {
+        placeholder: {
+          url: "/video/cta-mobile-preview.png",
+          width: 1080,
+          height: 1920,
+        },
+        video: {
+          url: "/video/mobile-cta.mp4",
+          width: 1080,
+          height: 1920,
+        },
+      },
       cta: cta?.cta && normalizeCTA(cta.cta),
     };
   }

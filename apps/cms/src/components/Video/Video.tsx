@@ -1,3 +1,107 @@
+// "use client";
+
+// import { useEffect, useRef, useState } from "react";
+// import Image from "next/image";
+// import { useHasMounted } from "src/hooks/useHasMounted";
+
+// type MediaData = {
+//   video?: { url: string };
+//   placeholder?: { url: string; blurDataURL?: string };
+// };
+
+// const isBlobCdn = (u: string) => u.includes("vercel-storage.com");
+
+// export function Video({
+//   video,
+//   priority = false,
+// }: {
+//   video: MediaData;
+//   priority?: boolean;
+// }) {
+//   const [url, setUrl] = useState(video?.video?.url ?? "");
+//   const [ready, setReady] = useState(false);
+//   const [shouldLoad, setShouldLoad] = useState(priority);
+//   const [inView, setInView] = useState(false);
+//   const mounted = useHasMounted();
+//   const ref = useRef<HTMLDivElement | null>(null);
+
+//   // IO
+//   useEffect(() => {
+//     if (!mounted || !ref.current || priority) return;
+//     const node = ref.current;
+//     const io = new IntersectionObserver(
+//       ([entry]) => setInView(entry.isIntersecting),
+//       { rootMargin: "300px 0px" }
+//     );
+//     io.observe(node);
+//     return () => {
+//       io.unobserve(node);
+//       io.disconnect();
+//     };
+//   }, [mounted, priority]);
+
+//   useEffect(() => {
+//     if (mounted && inView && !shouldLoad) setShouldLoad(true);
+//   }, [mounted, inView, shouldLoad]);
+
+//   // Sync с Blob, но только если реально видим
+//   // useEffect(() => {
+//   //   if (!shouldLoad) return;
+//   //   let aborted = false;
+
+//   //   async function sync() {
+//   //     const base = video?.video?.url ?? "";
+//   //     // setReady(false);
+//   //     if (!base || isBlobCdn(base)) {
+//   //       setUrl(base);
+//   //       return;
+//   //     }
+
+//   //     try {
+//   //       const r = await fetch(`/api/blob?src=${encodeURIComponent(base)}`);
+//   //       if (!r.ok) throw new Error("blob api failed");
+//   //       const { url: newUrl } = await r.json();
+//   //       if (aborted) return;
+//   //       setUrl(newUrl || base);
+//   //     } catch {
+//   //       if (!aborted) setUrl(base);
+//   //     }
+//   //   }
+
+//   //   sync();
+//   //   return () => {
+//   //     aborted = true;
+//   //   };
+//   // }, [video?.video?.url, shouldLoad]);
+
+//   const preview = video.placeholder?.url || "/images/preview.png";
+
+//   return (
+//     <div ref={ref} className="relative w-full h-full overflow-hidden">
+//       <video
+//         src={shouldLoad ? video.video?.url : undefined}
+//         preload="metadata"
+//         autoPlay
+//         muted
+//         playsInline
+//         loop
+//         onCanPlay={() => console.log("✅ video ready")}
+//         onLoadedData={() => console.log("🎬 data loaded")}
+//       />
+//       <Image
+//         src={preview}
+//         alt="preview"
+//         fill
+//         className={`object-cover transition-opacity duration-500 ${
+//           !ready ? "opacity-100 z-10" : "opacity-0 z-0"
+//         }`}
+//         sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
+//         fetchPriority={priority ? "high" : "auto"}
+//       />
+//     </div>
+//   );
+// }
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -9,127 +113,6 @@ type MediaData = {
   placeholder?: { url: string; blurDataURL?: string };
 };
 
-const isBlobCdn = (u: string) => u.includes("vercel-storage.com");
-
-// export function Video({ video }: { video: MediaData }) {
-//   const [url, setUrl] = useState(video?.video?.url ?? "");
-//   const mounted = useHasMounted();
-//   const ref = useRef<HTMLDivElement | null>(null);
-//   const [inView, setInView] = useState(false);
-//   const [ready, setReady] = useState(false);
-//   const [shouldLoad, setShouldLoad] = useState(false);
-
-//   useEffect(() => {
-//     let aborted = false;
-
-//     async function sync() {
-//       const base = video?.video?.url ?? "";
-//       if (!base || isBlobCdn(base)) {
-//         setReady(isBlobCdn(base));
-//         return;
-//       }
-
-//       try {
-//         const r = await fetch(`/api/blob?src=${encodeURIComponent(base)}`, {
-//           method: "GET",
-//         });
-//         if (!r.ok) throw new Error("blob api failed");
-//         const { url: newUrl } = await r.json();
-
-//         if (aborted) return;
-
-//         // Если сервер вернул CDN — отлично; если вернул исходник/пусто — остаёмся на исходнике/постере
-//         if (newUrl && isBlobCdn(newUrl)) {
-//           setUrl(newUrl);
-//           setReady(true);
-//         } else {
-//           // остались на исходнике или пустой строке — показываем постер/заглушку
-//           setUrl(base);
-//           setReady(isBlobCdn(base));
-//         }
-//       } catch {
-//         // тихо фейлимся — остаемся на исходнике/постере
-//         if (!aborted) {
-//           setUrl(base);
-//           setReady(isBlobCdn(base));
-//         }
-//       }
-//     }
-
-//     sync();
-//     return () => {
-//       aborted = true;
-//     };
-//   }, [video?.video?.url]);
-
-//   // IO создаётся только после монтирования
-//   useEffect(() => {
-//     if (!mounted || !ref.current) return;
-//     const io = new IntersectionObserver(
-//       ([entry]) => setInView(entry.isIntersecting),
-//       { rootMargin: "300px 0px" }
-//     );
-//     io.observe(ref.current);
-//     return () => io.disconnect();
-//   }, [mounted]);
-
-//   useEffect(() => {
-//     if (mounted && inView && !shouldLoad) setShouldLoad(true);
-//   }, [mounted, inView, shouldLoad]);
-
-//   const preview = video.placeholder?.url || "/images/preview.png";
-
-//   return (
-//     <div ref={ref} className="relative w-full h-full overflow-hidden">
-//       <Image
-//         src={preview}
-//         alt="preview"
-//         fill
-//         className={`object-cover ${
-//           !ready ? "opacity-100 z-10" : "opacity-0 z-0"
-//         } transition-opacity duration-500`}
-//         sizes="100vw"
-//         priority
-//       />
-//        <video
-//         src={shouldLoad && url ? url : undefined}
-//         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-//           ready ? "opacity-100 z-10" : "opacity-0 z-0"
-//         }`}
-//         onLoadedData={() => setReady(true)}
-//         autoPlay={ready}
-//         muted
-//         playsInline
-//         loop
-//         preload="metadata"
-//         disableRemotePlayback
-//         style={{
-//           transform: "translateZ(0)",
-//           willChange: "opacity, transform",
-//         }}
-//       />
-
-//       <video
-//         src={shouldLoad ? url : undefined}
-//         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-//           ready ? "opacity-100 z-10" : "opacity-0 z-0"
-//         }`}
-//         onLoadedData={() => setReady(true)}
-//         autoPlay={mounted}
-//         muted
-//         playsInline
-//         loop
-//         preload="metadata"
-//         disableRemotePlayback
-//         style={{
-//           transform: "translateZ(0)",
-//           willChange: "opacity, transform",
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
 export function Video({
   video,
   priority = false,
@@ -137,89 +120,75 @@ export function Video({
   video: MediaData;
   priority?: boolean;
 }) {
-  const [url, setUrl] = useState(video?.video?.url ?? "");
   const [ready, setReady] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(priority);
   const [inView, setInView] = useState(false);
   const mounted = useHasMounted();
-  const ref = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // IO
+  // IO — лениво подгружаем
   useEffect(() => {
-    if (!mounted || !ref.current || priority) return;
-    const node = ref.current;
+    if (!mounted || !wrapperRef.current || priority) return;
+    const node = wrapperRef.current;
     const io = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
       { rootMargin: "300px 0px" }
     );
     io.observe(node);
-    return () => {
-      io.unobserve(node);
-      io.disconnect();
-    };
+    return () => io.disconnect();
   }, [mounted, priority]);
 
+  // Активируем загрузку
   useEffect(() => {
-    if (mounted && inView && !shouldLoad) setShouldLoad(true);
-  }, [mounted, inView, shouldLoad]);
+    if (inView && !shouldLoad) setShouldLoad(true);
+  }, [inView, shouldLoad]);
 
-  // Sync с Blob, но только если реально видим
+  // Подгружаем видео вручную (чтобы гарантировать start)
   useEffect(() => {
-    if (!shouldLoad) return;
-    let aborted = false;
-
-    async function sync() {
-      const base = video?.video?.url ?? "";
-      // setReady(false);
-      if (!base || isBlobCdn(base)) {
-        setUrl(base);
-        return;
-      }
-
-      try {
-        const r = await fetch(`/api/blob?src=${encodeURIComponent(base)}`);
-        if (!r.ok) throw new Error("blob api failed");
-        const { url: newUrl } = await r.json();
-        if (aborted) return;
-        setUrl(newUrl || base);
-      } catch {
-        if (!aborted) setUrl(base);
-      }
+    if (shouldLoad && videoRef.current) {
+      videoRef.current.load(); // гарантирует начало загрузки даже при preload="none"
     }
+  }, [shouldLoad]);
 
-    sync();
-    return () => {
-      aborted = true;
-    };
-  }, [video?.video?.url, shouldLoad]);
+  // Проверяем готовность (на случай, если браузер кэшировал)
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (el.readyState >= 2) setReady(true);
+  }, [shouldLoad]);
 
   const preview = video.placeholder?.url || "/images/preview.png";
+  const src = video.video?.url;
 
   return (
-    <div ref={ref} className="relative w-full h-full overflow-hidden">
+    <div ref={wrapperRef} className="relative w-full h-full overflow-hidden">
       <video
-        src={shouldLoad && url ? url : undefined}
-        className={`absolute inset-0 w-full h-full object-cover  ${
+        ref={videoRef}
+        src={shouldLoad ? src : undefined}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
           ready ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
-        onLoadedData={() => setReady(true)}
+        preload={priority ? "metadata" : "none"}
         autoPlay
         muted
         playsInline
         loop
-        preload="none"
         disableRemotePlayback
+        onCanPlay={() => setReady(true)}
+        onLoadedData={() => setReady(true)}
         style={{
           transform: "translateZ(0)",
           willChange: "opacity, transform",
         }}
       />
+
       <Image
         src={preview}
         alt="preview"
         fill
-        className={`object-cover transition-opacity duration-500 ${
-          !ready ? "opacity-100 z-10" : "opacity-0 z-0"
+        className={`object-cover transition-opacity duration-700 ${
+          ready ? "opacity-0 z-0" : "opacity-100 z-10"
         }`}
         sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
         fetchPriority={priority ? "high" : "auto"}
