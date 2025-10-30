@@ -24,7 +24,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
               )}
               key={index}
             >
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-3 md:gap-5">
                 <span className="w-13 min-w-13 h-13 min-h-13 bg-white md:bg-gray-50 rounded-full flex items-center justify-center">
                   <Image
                     src={c.icon?.url ?? "/icons/icon.svg"}
@@ -34,7 +34,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                     loading="lazy"
                   />
                 </span>{" "}
-                <h3 className="font-medium !text-[24px]">{c.heading}</h3>
+                <h3 className="font-medium !text-[20px] md:!text-[24px]">{c.heading}</h3>
               </div>
               <p
                 className={clsx(

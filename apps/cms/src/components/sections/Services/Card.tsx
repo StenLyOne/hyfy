@@ -7,15 +7,15 @@ export function CardItem({ card }: { card: CardServices }) {
   return (
     <div
       id={heading}
-      className="relative max-w-[1074px] w-full min-h-[400px] md:h-[400px] p-5 md:p-10 bg-gray-100  flex items-center justify-center rounded-[20px] overflow-hidden"
+      className="relative max-w-[1074px] w-full min-h-[500px] md:min-h-auto md:h-[400px] p-5 md:p-10 bg-gray-100  flex items-center justify-center rounded-[20px] overflow-hidden"
     >
       <div className="z-3 max-w-[600px] space-y-4 mr-auto mt-auto">
         {sub_heading && <SubTitle label={sub_heading} />}
         {heading && (
-          <h3 className="h3-default text-white font-semibold">{heading}</h3>
+          <h3 className="h3-default text-balance text-white font-semibold">{heading}</h3>
         )}
         {paragraph && (
-          <p className="text-white font-semibold body-medium">{paragraph}</p>
+          <p className="text-white text-balance font-semibold body-medium">{paragraph}</p>
         )}
       </div>
 
@@ -29,7 +29,7 @@ export function CardItem({ card }: { card: CardServices }) {
           className="z-1 absolute inset-0 w-full h-full object-cover"
         ></Image>
       )}
-      <div className="z-2 absolute inset-0 w-full h-full object-cover bg-gradient-to-r from-[#0D4F47]/80 to-transparent"></div>
+      <div className="z-2 absolute inset-0 w-full h-full object-cover bg-gradient-to-t md:bg-gradient-to-r from-[#0D4F47]/100 md:from-[#0D4F47]/80 to-transparent"></div>
     </div>
   );
 }

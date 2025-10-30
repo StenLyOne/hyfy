@@ -1,5 +1,4 @@
 import { Button } from "../types/ui/button";
-import { put } from "@vercel/blob";
 
 const BASE = process.env.NEXT_PUBLIC_STRAPI_URL ?? "";
 
@@ -46,88 +45,84 @@ export async function normalizeVideo(m?: {
 }) {
   if (!m?.url) return undefined;
 
-  const normalizeUrl = assetsUrl(m.url);
-
   // ⚙️ Просто вызываем ensureBlobUrl (оно само решает — SSR это или client)
-  const blobUrl = (await ensureBlobUrl(normalizeUrl ?? undefined)) || m.url;
+  const strapiUrl = assetsUrl(m.url) ?? "";
 
   return {
-    url: blobUrl!,
+    url: strapiUrl,
     alt: m.alt ?? "",
     width: m.width ?? 0,
     height: m.height ?? 0,
   };
 }
 
-const blobCache = new Map<
-  string,
-  { url: string; checkedAt: number; exists: boolean }
->();
+// const blobCache = new Map<
+//   string,
+//   { url: string; checkedAt: number; exists: boolean }
+// >();
 
-export async function ensureBlobUrl(
-  strapiUrl?: string
-): Promise<string | undefined> {
-  if (!strapiUrl) return undefined;
+// export async function ensureBlobUrl(
+//   strapiUrl?: string
+// ): Promise<string | undefined> {
+//   if (!strapiUrl) return undefined;
 
-  let index = 0;
+//   const fileName = strapiUrl.split("/").pop();
+//   const blobUrl = `${process.env.BLOB_READ_URL}${fileName}`;
 
-  const fileName = strapiUrl.split("/").pop();
-  const blobUrl = `${process.env.BLOB_READ_URL}${fileName}`;
+//   // --- SSR / BUILD ---
+//   if (typeof window === "undefined") {
+//     // 🚫 никаких fetch — билд-окружение может быть без сети
 
-  // --- SSR / BUILD ---
-  if (typeof window === "undefined" && index < 4) {
-    // 🚫 никаких fetch — билд-окружение может быть без сети
-    index = index + 1;
-    console.warn("⚠️ Skip upload during SSR/build:", fileName);
-    return blobUrl;
-  }
+//     console.warn("⚠️ Skip upload during SSR/build:", fileName);
+//     return blobUrl;
+//   }
 
-  // --- Клиент ---
-  // 🚧 Предохранитель: если уже Blob URL — просто вернуть -
-  if (strapiUrl.includes("vercel-storage.com")) {
-    console.log(`🚧 Blob URL : ${strapiUrl}`);
-    return strapiUrl;
-  }
+//   // --- Клиент ---
+//   // 🚧 Предохранитель: если уже Blob URL — просто вернуть -
+//   if (strapiUrl.includes("vercel-storage.com")) {
+//     console.log(`🚧 Blob URL : ${strapiUrl}`);
+//     return strapiUrl;
+//   }
 
-  const now = Date.now();
+//   const now = Date.now();
 
-  // Проверяем, есть ли файл в Blob
-  const head = await fetch(blobUrl, { method: "HEAD" }).catch(() => null);
-  const exists = !!head?.ok;
+//   // Проверяем, есть ли файл в Blob
+//   const head = await fetch(blobUrl, { method: "HEAD" }).catch(() => null);
+//   const exists = !!head?.ok;
 
-  if (exists) {
-    blobCache.set(strapiUrl, { url: blobUrl, checkedAt: now, exists: true });
-    console.log("✅ Exists in Blob:", blobUrl);
-    return blobUrl;
-  }
+//   if (exists) {
+//     blobCache.set(strapiUrl, { url: blobUrl, checkedAt: now, exists: true });
+//     console.log("✅ Exists in Blob:", blobUrl);
+//     return blobUrl;
+//   }
 
-  // --- Нет в Blob — заливаем заново ---
-  console.log("⬆️ Uploading to Blob:", fileName);
-  try {
-    const res = await fetch(strapiUrl);
-    if (!res.ok) throw new Error(`Fetch failed ${res.status}`);
-    const buffer = await res.arrayBuffer();
+//   // --- Нет в Blob — заливаем заново ---
+//   console.log("⬆️ Uploading to Blob:", fileName);
+//   try {
+//     const res = await fetch(strapiUrl);
+//     if (!res.ok) throw new Error(`Fetch failed ${res.status}`);
+//     const buffer = await res.arrayBuffer();
 
-    const blob = await put(fileName!, Buffer.from(buffer), {
-      access: "public",
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-      addRandomSuffix: false,
-      allowOverwrite: false,
-    });
+//     const blob = await put(fileName!, Buffer.from(buffer), {
+//       access: "public",
+//       token: process.env.BLOB_READ_WRITE_TOKEN,
+//       addRandomSuffix: false,
+//       allowOverwrite: false,
+//     });
 
-    blobCache.set(strapiUrl, { url: blob.url, checkedAt: now, exists: true });
-    console.log("✅ Uploaded to Blob:", blob.url);
-    return blob.url;
-  } catch (e: unknown) {
-    const err = e as Error;
-    if (err.message?.includes("already exists")) {
-      console.warn("⚠️ Blob already exists, using existing URL:", blobUrl);
-      blobCache.set(strapiUrl, { url: blobUrl, checkedAt: now, exists: true });
-      return blobUrl;
-    }
+//     blobCache.set(strapiUrl, { url: blob.url, checkedAt: now, exists: true });
+//     console.log("✅ Uploaded to Blob:", blob.url);
+//     return blob.url;
+//   } catch (e: unknown) {
+//     const err = e as Error;
+//     if (err.message?.includes("already exists")) {
+//       console.warn("⚠️ Blob already exists, using existing URL:", blobUrl);
+//       blobCache.set(strapiUrl, { url: blobUrl, checkedAt: now, exists: true });
+//       return blobUrl;
+//     }
 
-    console.error("❌ Blob upload failed:", err);
-    blobCache.set(strapiUrl, { url: strapiUrl, checkedAt: now, exists: false });
-    return strapiUrl;
-  }
-}
+//     console.error("❌ Blob upload failed:", err);
+//     blobCache.set(strapiUrl, { url: strapiUrl, checkedAt: now, exists: false });
+//     return strapiUrl;
+//   }
+// }

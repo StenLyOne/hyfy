@@ -4,8 +4,8 @@ import { TestimonialCard } from "src/lib/types/sections/testimonials";
 export function Card({ testimonial }: { testimonial: TestimonialCard }) {
   const { avatar, name, paragraph, role } = testimonial;
   return (
-    <div className="space-y-6 p-4 md:p-6 h-full w-full bg-white rounded-[20px]">
-      <div className="flex gap-3">
+    <div className=" p-4 md:p-6 h-full w-full bg-white rounded-[20px] flex flex-col-reverse items-start justify-between gap-6">
+      <div className="flex  gap-3">
         {avatar && (
           <Image
             src={avatar?.url || "/avatars/avatar.png"}
@@ -18,7 +18,7 @@ export function Card({ testimonial }: { testimonial: TestimonialCard }) {
         )}
         <div>
           {name && (
-            <p className="body-large font-semibold line-clamp-1">{name}</p>
+            <p className="body-large text-gray-700 font-medium line-clamp-1">{name}</p>
           )}
           {role && (
             <p className="body-small text-gray-500 line-clamp-1">{role}</p>
@@ -30,7 +30,7 @@ export function Card({ testimonial }: { testimonial: TestimonialCard }) {
           </div>
         )} */}
       </div>
-      <p className="body-medium">{paragraph}</p>
+      <p className="text-[16px] md:text-[18px]">{paragraph}</p>
     </div>
   );
 }
