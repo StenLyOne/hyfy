@@ -197,24 +197,16 @@ export function Video({
 
   return (
     <div ref={ref} className="relative w-full h-full overflow-hidden">
-      <Image
-        src={preview}
-        alt="preview"
-        fill
-        className={`object-cover transition-opacity duration-500 ${
-          !ready ? "opacity-100 z-10" : "opacity-0 z-0"
-        }`}
-        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
-        priority={priority}
-      />
-
       <video
         src={shouldLoad && url ? url : undefined}
         className={`absolute inset-0 w-full h-full object-cover  ${
           ready ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
         poster={preview}
-        onLoadedData={() => setReady(true)}
+        onLoadedData={() => {
+          // Даем браузеру зафиксировать LCP по постеру
+          setTimeout(() => setReady(true), 300);
+        }}
         autoPlay
         muted
         playsInline
@@ -225,6 +217,16 @@ export function Video({
           transform: "translateZ(0)",
           willChange: "opacity, transform",
         }}
+      />
+      <Image
+        src={preview}
+        alt="preview"
+        fill
+        className={`object-cover transition-opacity duration-500 ${
+          !ready ? "opacity-100 z-10" : "opacity-0 z-0"
+        }`}
+        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
+        fetchPriority={priority ? "high" : "auto"}
       />
     </div>
   );

@@ -61,6 +61,7 @@ export async function getOrUploadToBlob(sourceUrl: string): Promise<string> {
       token: RW_TOKEN,
       addRandomSuffix: false,
       allowOverwrite: false,
+      cacheControlMaxAge: 31536000,
     });
     mem.set(sourceUrl, { url: uploaded.url, checkedAt: now, exists: true });
     return uploaded.url;
