@@ -34,7 +34,9 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                     loading="lazy"
                   />
                 </span>{" "}
-                <h3 className="font-medium !text-[20px] md:!text-[24px]">{c.heading}</h3>
+                <h3 className="font-medium !text-[20px] md:!text-[24px]">
+                  {c.heading}
+                </h3>
               </div>
               <p
                 className={clsx(
@@ -69,6 +71,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                       className="object-cover"
                       priority={index === 0} // первая картинка — приоритетная
                       loading={index === 0 ? undefined : "lazy"} // остальные ленивые
+                      sizes=" 90vw, 80vw"
                     />
                   </motion.div>
                 </div>
@@ -94,6 +97,7 @@ export function TabSlider({ card }: { card: howItWorksCard[] }) {
                     fill
                     priority={index === 0} // первая картинка — приоритетная
                     loading={index === 0 ? undefined : "lazy"} // остальные ленивые
+                    sizes=" 70vw, 50vw"
                     className="object-cover"
                   />
                 </motion.div>

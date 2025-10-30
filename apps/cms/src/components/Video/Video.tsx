@@ -130,17 +130,23 @@ const isBlobCdn = (u: string) => u.includes("vercel-storage.com");
 //   );
 // }
 
-export function Video({ video }: { video: MediaData }) {
+export function Video({
+  video,
+  priority = false,
+}: {
+  video: MediaData;
+  priority?: boolean;
+}) {
   const [url, setUrl] = useState(video?.video?.url ?? "");
   const [ready, setReady] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(priority);
   const [inView, setInView] = useState(false);
   const mounted = useHasMounted();
   const ref = useRef<HTMLDivElement | null>(null);
 
   // IO
   useEffect(() => {
-    if (!mounted || !ref.current) return;
+    if (!mounted || !ref.current || priority) return;
     const node = ref.current;
     const io = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
@@ -151,7 +157,7 @@ export function Video({ video }: { video: MediaData }) {
       io.unobserve(node);
       io.disconnect();
     };
-  }, [mounted]);
+  }, [mounted, priority]);
 
   useEffect(() => {
     if (mounted && inView && !shouldLoad) setShouldLoad(true);
@@ -164,7 +170,7 @@ export function Video({ video }: { video: MediaData }) {
 
     async function sync() {
       const base = video?.video?.url ?? "";
-      setReady(false);
+      // setReady(false);
       if (!base || isBlobCdn(base)) {
         setUrl(base);
         return;
@@ -198,21 +204,22 @@ export function Video({ video }: { video: MediaData }) {
         className={`object-cover transition-opacity duration-500 ${
           !ready ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
-        sizes="100vw"
-        priority
+        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
+        priority={priority}
       />
 
       <video
         src={shouldLoad && url ? url : undefined}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+        className={`absolute inset-0 w-full h-full object-cover  ${
           ready ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
+        poster={preview}
         onLoadedData={() => setReady(true)}
-        autoPlay={ready || mounted}
+        autoPlay
         muted
         playsInline
         loop
-        preload="metadata"
+        preload="none"
         disableRemotePlayback
         style={{
           transform: "translateZ(0)",

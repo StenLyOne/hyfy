@@ -63,7 +63,7 @@ h4 {
 }
 
 .body-large {
-  @apply md:text-[20px] leading-[32px];
+  @apply md:text-[20px] leading-[28px];
 }
 
 .scrollbar-hide::-webkit-scrollbar {

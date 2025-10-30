@@ -51,7 +51,7 @@ export function Hero({ data, isDraft }: { data: HeroData; isDraft: boolean }) {
 
       <div className="absolute inset-0 z-0  ">
         {media_mobile?.video && media_pc?.video && (
-          <Video video={isMobile ? media_mobile : media_pc} />
+          <Video video={isMobile ? media_mobile : media_pc} priority />
         )}
       </div>
 

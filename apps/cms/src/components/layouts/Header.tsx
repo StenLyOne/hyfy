@@ -42,7 +42,7 @@ export function Header({
             alt="Logo"
             width={68}
             height={48}
-            loading="lazy"
+            priority
             className="h-8 md:h-12 w-auto"
           />
         </Link>

@@ -15,10 +15,18 @@ export function Card({ card }: { card: CardLink }) {
   const ref = useRef<HTMLDivElement>(null);
   const isMobile = useScreenSize().width <= 768;
 
-  const inView = useInView(ref, {
-    margin: "-60% 0px -60% 0px",
-    amount: "some",
-  });
+  const inView = useInView(
+    ref,
+    isMobile
+      ? {
+          margin: "-60px 0px -60px 0px",
+          amount: 1.0,
+        }
+      : {
+          margin: "-60% 0px -60% 0px",
+          amount: "some",
+        }
+  );
   return (
     <a href={link} target="_blank" rel="noopener noreferrer" className="block">
       <div
