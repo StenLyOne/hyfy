@@ -126,6 +126,21 @@ export function Video({
   const mounted = useHasMounted();
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [giveUp, setGiveUp] = useState(false);
+
+  useEffect(() => {
+    if (priority) return;
+    const nav = navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    };
+    const c = nav.connection;
+    const slow = /(^|-)2g/.test(c?.effectiveType ?? "");
+    if (c?.saveData || slow) {
+      setShouldLoad(false);
+      setReady(false);
+      setGiveUp(true); // всегда постер
+    }
+  }, [priority]);
 
   // IO — лениво подгружаем
   useEffect(() => {
@@ -150,6 +165,12 @@ export function Video({
       videoRef.current.load(); // гарантирует начало загрузки даже при preload="none"
     }
   }, [shouldLoad]);
+
+  useEffect(() => {
+    if (!shouldLoad || ready || giveUp) return;
+    const t = setTimeout(() => setGiveUp(true), 2500); // 2.5s хватит
+    return () => clearTimeout(t);
+  }, [shouldLoad, ready, giveUp]);
 
   // Проверяем готовность (на случай, если браузер кэшировал)
   useEffect(() => {
@@ -183,16 +204,18 @@ export function Video({
         }}
       />
 
-      <Image
-        src={preview}
-        alt="preview"
-        fill
-        className={`object-cover transition-opacity duration-700 ${
-          ready ? "opacity-0 z-0" : "opacity-100 z-10"
-        }`}
-        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
-        fetchPriority={priority ? "high" : "auto"}
-      />
+      {!giveUp && (
+        <Image
+          src={preview}
+          alt="preview"
+          fill
+          className={`object-cover transition-opacity duration-700 ${
+            ready ? "opacity-0 z-0" : "opacity-100 z-10"
+          }`}
+          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 90vw"
+          fetchPriority={priority ? "high" : "auto"}
+        />
+      )}
     </div>
   );
 }
