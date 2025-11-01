@@ -29,7 +29,7 @@ export function CardItem({ card }: { card: CardServices }) {
           className="z-1 absolute inset-0 w-full h-full object-cover"
         ></Image>
       )}
-      <div className="z-2 absolute inset-0 w-full h-full object-cover bg-gradient-to-t md:bg-gradient-to-r from-[#0D4F47]/100 md:from-[#0D4F47]/80 to-transparent"></div>
+      <div className="z-2 absolute inset-0 w-full h-full object-cover bg-gradient-to-t md:bg-gradient-to-r from-[#0D4F47]/100 md:from-[#0D4F47]/80 md:via-[#0D4F47]/70 to-transparent"></div>
     </div>
   );
 }

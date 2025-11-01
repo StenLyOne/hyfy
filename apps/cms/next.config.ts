@@ -8,12 +8,12 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   reactStrictMode: false,
 
-    // compiler: {
-    //   removeConsole:
-    //     process.env.NODE_ENV === "production"
-    //       ? { exclude: ["error", "warn"] }
-    //       : false,
-    // },
+  // compiler: {
+  //   removeConsole:
+  //     process.env.NODE_ENV === "production"
+  //       ? { exclude: ["error", "warn"] }
+  //       : false,
+  // },
 
   experimental: {
     optimizePackageImports: ["framer-motion"],

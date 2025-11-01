@@ -64,7 +64,7 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
             {heading && (
               <motion.h2
                 style={{ opacity: opacity }}
-                className="h2-large text-white text-balance"
+                className="h2-large text-white text-balance !font-semibold"
               >
                 {heading}
               </motion.h2>
@@ -73,7 +73,7 @@ export function CtaSection({ data }: { data: CtaSectionData }) {
             {content?.length != 0 && (
               <motion.div className="space-y-4" style={{ opacity: opacity }}>
                 {content?.map((c, i) => (
-                  <p key={i} className="body-large text-white text-balance">
+                  <p key={i} className="body-large text-white text-balance font-semibold">
                     {c.paragraph}
                   </p>
                 ))}
