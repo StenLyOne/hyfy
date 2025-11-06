@@ -18,7 +18,9 @@ export function Card({ testimonial }: { testimonial: TestimonialCard }) {
         )}
         <div>
           {name && (
-            <p className="body-large text-gray-700 font-medium line-clamp-1">{name}</p>
+            <p className="body-large text-gray-700 font-medium line-clamp-1">
+              {name}
+            </p>
           )}
           {role && (
             <p className="body-small text-gray-500 line-clamp-1">{role}</p>
@@ -30,7 +32,7 @@ export function Card({ testimonial }: { testimonial: TestimonialCard }) {
           </div>
         )} */}
       </div>
-      <p className="text-[16px] md:text-[18px]">{paragraph}</p>
+      <p className="text-[16px] md:text-[18px] italic ">&ldquo;{paragraph}&rdquo;</p>
     </div>
   );
 }
