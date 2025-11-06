@@ -22,7 +22,7 @@ export function SectionWrapper({ children }: { children: React.ReactNode }) {
       ref={ref}
       className="
         relative z-20
-        md:min-h-[100dvh]
+        md:min-h-[10dvh]
         min-h-[100svh]
         -mt-[12vh] sm:-mt-[16vh]
       "
@@ -32,7 +32,7 @@ export function SectionWrapper({ children }: { children: React.ReactNode }) {
           scale: width >= 768 ? scale : undefined,
           y,
         }}
-        className="transform-gpu will-change-transform"
+        className="transform-gpu will-change-transform  h-full min-h-full"
       >
         {children}
       </motion.div>

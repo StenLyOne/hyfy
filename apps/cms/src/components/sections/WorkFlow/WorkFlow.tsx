@@ -26,9 +26,9 @@ export function WorkFlow({ data }: { data: WorkFlowData }) {
   return (
     <div
       id="workflow"
-      className="bg-gray-50 rounded-t-[40px]   shadow-[0_-20px_33px_rgba(53,239,217,0.21)]"
+      className="bg-gray-50 rounded-t-[40px] shadow-[0_-20px_33px_rgba(53,239,217,0.21)] h-full min-h-full"
     >
-      <div className="container space-y-15 bg-gra">
+      <div className="container space-y-15 bg-gray">
         <Content
           classContainer="text-center text-balance flex flex-col items-center"
           cta={cta}
