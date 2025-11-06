@@ -136,7 +136,7 @@ export function Button({ data }: { data: ButtonType }) {
 
   return external === "external" ? (
     <a
-      id="A"
+      id={external}
       className={classes}
       style={outlineStyle}
       href={link}
@@ -146,11 +146,11 @@ export function Button({ data }: { data: ButtonType }) {
       {content}
     </a>
   ) : external === "anchor" ? (
-    <a id="A INNER" href={link} style={outlineStyle} className={classes}>
+    <a id={external} href={link} style={outlineStyle} className={classes}>
       {content}
     </a>
   ) : (
-    <Link id="LINK" style={outlineStyle} className={classes} href={link}>
+    <Link id={external} style={outlineStyle} className={classes} href={link}>
       {content}
     </Link>
   );

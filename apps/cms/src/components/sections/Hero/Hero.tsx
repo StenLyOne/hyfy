@@ -23,7 +23,7 @@ export function Hero({ data, isDraft }: { data: HeroData; isDraft: boolean }) {
             </div>
           )}
 
-          <h1 className="text-[30px] md:text-[80px] leading-[114%] font-semibold text-white mt-6 mb-5">
+          <h1 className="text-[30px] lg:text-[60px] xl:text-[80px] leading-[114%] font-semibold text-white mt-6 mb-5 text-balance">
             {heading}
           </h1>
           {content && (

@@ -95,7 +95,7 @@ export default function CardsWrapper({ card }: { card: CardServices[] }) {
             </div>
 
             {/* Таб-лист */}
-            <div className="md:ml-4 max-[768px]:pt-16 space-y-4 flex justify-evenly gap-2 md:block w-full md:w-max bg-white md:bg-transparent">
+            <div className="md:ml-4 max-[768px]:pt-16 space-y-3 flex justify-evenly gap-2 md:block w-full md:w-max bg-white md:bg-transparent">
               {card.map((c, i) => (
                 <div
                   key={i}
@@ -125,7 +125,7 @@ export default function CardsWrapper({ card }: { card: CardServices[] }) {
                       "hidden md:block cursor-pointer transition-color transition-font duration-150 text-balance w-full",
                       active === i
                         ? "text-activ font-bold "
-                        : "md:text-gray-600"
+                        : "md:text-gray-500 font-normal"
                     )}
                   >
                     {c.heading}

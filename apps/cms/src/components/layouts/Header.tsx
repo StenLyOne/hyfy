@@ -50,7 +50,7 @@ export function Header({
         {/* NAV */}
         {nav_links && nav_links.length > 0 && (
           <nav
-            className={`hidden md:flex space-x-8 ${
+            className={`hidden lg:flex space-x-8 ${
               isTop ? "text-white" : "text-gray-800"
             }  font-medium`}
           >
@@ -71,7 +71,7 @@ export function Header({
         {cta && (
           <a
             href={cta.link}
-            className={`hidden md:inline-block ${
+            className={`hidden lg:inline-block ${
               isTop ? "bg-white text-primary" : "bg-primary text-white"
             }  px-6 py-3 text-[20px] rounded-full font-bold uppercase hover:opacity-85 transition`}
           >
@@ -81,7 +81,7 @@ export function Header({
 
         {/* BURGER MENU */}
         <button
-          className="md:hidden relative z-2 w-auto h-4 flex flex-col justify-between items-center"
+          className="lg:hidden relative z-2 w-auto h-4 flex flex-col justify-between items-center"
           onClick={() => setOpen(!open)}
           aria-label="Open menu of navitagion"
         >
