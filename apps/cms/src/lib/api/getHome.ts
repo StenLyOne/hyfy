@@ -175,7 +175,7 @@ export class GetHomePages {
           height: 1920,
         },
         video: {
-          url: "/video/mobile-hero-1mb.mp4",
+          url: "/video/hero-mobile-new.mp4",
           width: 1080,
           height: 1920,
         },
@@ -187,7 +187,7 @@ export class GetHomePages {
           height: 1920,
         },
         video: {
-          url: "/video/pc-hero-3mb.mp4",
+          url: "/video/hero-pc-new.mp4",
           width: 1080,
           height: 1920,
         },
