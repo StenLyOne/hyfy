@@ -62,7 +62,7 @@ export function Partners({ data }: { data: PartnersData }) {
         <div ref={containerRef} className="relative overflow-hidden w-full">
           <motion.div
             ref={contentRef}
-            className="grid items-start grid-flow-col auto-cols-max gap-10 md:gap-[200px]"
+            className="grid items-center grid-flow-col auto-cols-max gap-10 md:gap-[200px]"
             animate={controls}
           >
             {logo?.length > 0 &&

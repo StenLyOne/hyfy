@@ -23,14 +23,6 @@ export function Props({ data }: { data: PropsData }) {
     return { color: `hsl(${base})`, gradient };
   }
 
-  const dataSvg = [
-    "/svg/props.validation.svg",
-    "/svg/props.monitoring.svg",
-    "/svg/props.factor.svg",
-    "/svg/props.validation.svg",
-    "/svg/props.validation.svg",
-  ];
-
   return (
     <section className="w-full bg-white  z-3 relative">
       <div className="container !px-0 md:!px-10">
@@ -51,7 +43,6 @@ export function Props({ data }: { data: PropsData }) {
                 data={card}
                 key={index}
                 styles={getCardStyles(index)}
-                svg={dataSvg[index]}
               />
             ))}
           </div>

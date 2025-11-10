@@ -52,6 +52,25 @@ export function Card({ card }: { card: CardLink }) {
           />
         )}
 
+        {/* IMAGE */}
+        {media?.url && (
+          <div
+            className={clsx(
+              "absolute opacity-0 scale-50 group-hover/card:opacity-100 group-hover/card:scale-100  md:translate-y-1/6 left-2  md:left-1/6 bottom-5  md:bottom-[0%] group-hover/card:bottom-[20%] duration-300",
+              isMobile && inView && "bottom-5 opacity-100 left-0 scale-100"
+            )}
+          >
+            <Image
+              alt={media?.alt ?? "Media Image"}
+              src={media?.url ?? "seo"}
+              width={media.width > 500 ? 400 : media.width}
+              height={media.width > 500 ? 400 : media.height}
+              loading="lazy"
+              className="h-auto max-h-50 md:max-h-60 object-contain"
+            />
+          </div>
+        )}
+
         {/* контент */}
         <div className="relative flex flex-col justify-between h-full">
           {heading && (
@@ -85,26 +104,6 @@ export function Card({ card }: { card: CardLink }) {
               isActive={inView && isMobile}
             />
           </div>
-          {/* картинка */}
-          {media?.url && (
-            <div
-              className={clsx(
-                "absolute opacity-0 group-hover/card:opacity-100 group-hover/card:scale-125 translate-y-1/6 left-1/6 group-hover/card:-translate-y-[20px] duration-300",
-                isMobile &&
-                  inView &&
-                  "translate-y-5/10 opacity-100 -translate-x-1/4 h-[160px] scale-115"
-              )}
-            >
-              <Image
-                alt={media?.alt || "Media Image"}
-                src={media?.url}
-                width={media.width}
-                height={media.height}
-                loading="lazy"
-                className="h-auto max-h-[160px] md:max-h-[240px] object-contain"
-              />
-            </div>
-          )}
         </div>
       </div>
     </a>

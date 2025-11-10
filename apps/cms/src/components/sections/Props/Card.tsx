@@ -9,7 +9,6 @@ export function Card({
 }: {
   data: CardProps;
   styles: CardStyles;
-  svg: string;
 }) {
   const { heading, media, sub_heading, paragraph } = data;
   const { color } = styles;
