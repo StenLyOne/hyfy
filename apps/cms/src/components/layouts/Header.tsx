@@ -17,7 +17,7 @@ export function Header({
   settings: GeneralSettingData;
 }) {
   const { nav_links, cta } = data;
-  const { logo_icon, social_media } = settings;
+  const { logo_header, social_media } = settings;
   const [open, setOpen] = useState(false);
   const [isTop, setIsTop] = useState(true);
   const { width } = useScreenSize();
@@ -33,15 +33,19 @@ export function Header({
   }, [width]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-1001 bg-white/40 backdrop-blur-[40px] shadow-sm">
+    <header
+      className={`fixed top-0 left-0 right-0 z-1001 ${
+        isTop ? "bg-white/40" : "bg-white/10"
+      } transform-color duration-500 backdrop-blur-[40px] shadow-sm`}
+    >
       <div className="container !py-2 md:!py-4 mx-auto px-6 flex items-center justify-between">
         {/* LOGO */}
         <Link href="/" className="flex items-center z-2">
           <Image
-            src={logo_icon?.url || "/logos/logo-short.png"}
+            src={logo_header?.url || "/logos/logo-short.png"}
             alt="Logo"
-            width={68}
-            height={48}
+            width={logo_header?.width ?? 100}
+            height={logo_header?.height ?? 60}
             priority
             className="h-8 md:h-12 w-auto"
           />

@@ -5,7 +5,6 @@ import type { GeneralSettingData } from "../types/sections/generalSettingData";
 import type { StrapiListResponse } from "../types/strapi/strapi";
 import { normalizeCTA, normalizeImage } from "./utils";
 
-
 export type SiteSettings = {
   header: HeaderData;
   footer: FooterData;
@@ -76,11 +75,11 @@ export class GetSiteSettings {
     const settings = data.general_setting;
 
     return {
-      logo_full: settings?.logo_full
-        ? normalizeImage(settings.logo_full)
+      logo_header: settings?.logo_header?.url
+        ? normalizeImage(settings.logo_header)
         : undefined,
-      logo_icon: settings?.logo_icon?.url
-        ? normalizeImage(settings.logo_icon)
+      logo_footer: settings?.logo_footer?.url
+        ? normalizeImage(settings.logo_footer)
         : undefined,
       social_media: settings?.social_media
         ? [...settings.social_media]

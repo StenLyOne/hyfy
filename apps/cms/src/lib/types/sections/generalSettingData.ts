@@ -8,7 +8,7 @@ export interface SocialMedia {
 }
 
 export interface GeneralSettingData {
-  logo_full?: Media;
-  logo_icon?: Media;
+  logo_header?: Media;
+  logo_footer?: Media;
   social_media?: SocialMedia[];
 }

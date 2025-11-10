@@ -14,7 +14,7 @@ export function Footer({
   global: GeneralSettingData;
 }) {
   const { columns, copyright, policy_links } = data;
-  const { logo_full, social_media } = global;
+  const { logo_footer, social_media } = global;
 
   return (
     <footer className=" bg-white w-full  z-3 relative">
@@ -23,10 +23,10 @@ export function Footer({
           <div className="space-y-10">
             <a href="#hero">
               <Image
-                src={logo_full?.url || "/logos/logo.png"}
-                alt={logo_full?.alt || "logo"}
-                width={logo_full?.width}
-                height={logo_full?.height}
+                src={logo_footer?.url || "/logos/logo.png"}
+                alt={logo_footer?.alt || "logo"}
+                width={logo_footer?.width ?? 200}
+                height={logo_footer?.height ?? 70}
               />
             </a>
 
