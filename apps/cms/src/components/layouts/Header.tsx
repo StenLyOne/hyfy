@@ -35,7 +35,7 @@ export function Header({
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-1001 ${
-        isTop ? "bg-white/40" : "bg-white/10"
+        isTop ? "bg-white/10" : "bg-white/20"
       } transform-color duration-500 backdrop-blur-[40px] shadow-sm`}
     >
       <div className="container !py-2 md:!py-4 mx-auto px-6 flex items-center justify-between">
